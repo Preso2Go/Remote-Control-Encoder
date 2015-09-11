@@ -1,0 +1,1 @@
+Stable zipped versions of the activity module will be published in this folder
