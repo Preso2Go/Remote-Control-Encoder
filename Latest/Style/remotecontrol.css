@@ -1,0 +1,449 @@
+#infofield{
+    font-size: 75%;
+    font-weight: bold;
+    color: orange;
+    text-align: center;
+    cursor: pointer;
+}
+#warning{
+    color: #145b89;
+}
+#warning:hover{
+    text-decoration: underline;
+    color: #009AFD;
+}
+#controls, #metadata, #settings, #moresettings{
+    width: 75%;
+    margin: 15px auto 22px;
+    padding-left: 11px;
+}
+#moresettings input{
+    height: 23px;
+    font-size: 85%;
+    width: 68px;
+    text-align: center;
+}
+#moresettings .ui-spinner{
+    float: right;
+    margin-right: 14px;
+    margin-top: -3px;
+}
+#controls{
+    border-bottom: 3px solid rgba(216, 216, 216, 0.7);
+    height: 115px;
+    width: 465px;
+    margin-bottom: 0;
+    padding-bottom: 20px;
+}
+.pagecontainer{
+    width: 100% !important;
+}
+#info{
+    position: relative;
+    top: 0;
+    left: 0;
+}
+#maincontainer{
+    width: 663px;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: rgba(255, 255, 237, 0.3);
+    box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.36) inset;
+    max-height: 770px;
+}
+#page2{
+    position: relative;
+    top: -534px;
+    left: 700px;
+}
+
+/*TODO: Fix the menu to select which screen you want to use.*/
+#menu{
+    position: relative;
+    width: 740px;
+    margin: 0 auto;
+    top: 10px;
+    margin-bottom: 20px;
+}
+#menu .menuitems{
+    padding: 10px 25px;
+    cursor: pointer;
+}
+#menu div{
+    border: 1px solid #292f33;
+    border-left: none !important;
+    border-right: 1px solid rgba(0, 0, 0, 0.99) !important;
+    background-image: -moz-linear-gradient(
+            180deg, #5c7cc0 0%,#5c7cc0 50%, #385799 100%);
+    background-image: -webkit-linear-gradient(
+            180deg, #5c7cc0 0%,#5c7cc0 50%, #385799 100%);
+    background-image: -o-linear-gradient(
+            180deg, #5c7cc0 0%,#5c7cc0 50%, #385799 100%);
+    background-image: linear-gradient(
+            180deg, #5c7cc0 0%,#5c7cc0 50%, #385799 100%);
+    display: inline;
+}
+#menu div:first-of-type{
+    border: 1px solid #292f33 !important;
+    border-right: 1px solid rgba(0, 0, 0, 0.99) !important;
+    border-radius: 0 0 0 50%;
+    padding: 10px 0 10px 45px;
+}
+#menu div:last-of-type{
+    border: 1px solid #292f33 !important;
+    border-left: none !important;
+    border-radius: 0 0 50% 0;
+    padding: 10px 0 10px 45px;
+}
+#menu .active{
+    box-shadow: inset 1px 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+#recpausebtn, #stopbtn, #capturenowbtn{
+    width: 110px;
+    height: 65px;
+    border-radius: 10px;
+    background: #009AFD none repeat scroll 0 0;
+    transition: background 0.15s ease 0s, color 0.15s ease 0s;
+    border: 1px solid #1777B7;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 1px 1px rgba(100, 100, 100, 0.3);
+    float: left;
+}
+
+#recpausebtn, #stopbtn, #capturenowbtn, #settings label, #logout, #updatemetadata, #menu .menuitems, #view, .camcontrols{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.recstatus{
+    background: red none repeat scroll 0 0 !important;
+    border: 1px solid rgba(179, 0, 0, 0.91) !important;
+}
+.liverecording{
+    background-color: rgba(0, 70, 105, 0.6) !important;
+    cursor: not-allowed !important;
+}
+.liverecording p{
+    border-color: rgba(218, 218, 218, 0.7) !important;
+}
+#recpausebtn{
+    margin: 0 12px 0 78px;
+}
+#record{
+    margin: 12px 0 0 35px !important;
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    background-color: #FFF;
+}
+#pause{
+    border-left: 11px solid #FFF;
+    border-right: 11px solid #FFF;
+    width: 10px;
+    height: 37px;
+    margin: 14px 0 0 37px;
+}
+#resume p:first-of-type{
+    margin: 13px 5px 0 33px;
+    width: 11px;
+    height: 37px;
+    background-color: #FFF;
+}
+#resume p:last-of-type{
+    margin-top: 13px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 18px 0 18px 32px;
+    border-color: transparent transparent transparent #FFF;
+}
+#resume p{
+    float: left;
+}
+#capturenow{
+    max-width: 47px;
+    max-height: 47px;
+}
+
+#stopbtn{
+    margin-right: 12px;
+}
+#stopbtn p{
+    margin: 14px 0 0 37px;
+    width: 37px;
+    height: 37px;
+    background-color: #FFF;
+    border-radius: 2px;
+}
+
+#metadata{
+    padding: 5px 0 10px 15px;
+    border-bottom: 2px solid rgba(216, 216, 216, 0.7);
+}
+#metatitle{
+    float: none;
+}
+#record, #stop, #capturenow{
+    margin-top: 9px;
+}
+
+#logout, #recpausebtn, #stopbtn, #updatemetadata, #capturenowbtn{
+    text-align: center;
+    cursor:pointer;
+    font-weight: bold;
+    color: white;
+}
+
+#logout, #updatemetadata{
+    background: #009AFD none repeat scroll 0 0;
+    transition: background 0.15s ease 0s, color 0.15s ease 0s;
+    border: 1px solid #1777B7;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 1px 1px rgba(100, 100, 100, 0.3);
+    width: 200px;
+    padding: 4px;
+    margin: 5px 0 12px;
+    border-radius: 4px;
+}
+#logout{
+    margin-left: 228px;
+}
+textarea{
+    height: 100px;
+}
+input[type=text], textarea{
+    margin: 5px auto;
+    min-width: 95%;
+    max-width: 95%;
+    min-height: 30px !important;
+    max-height: 240px !important;
+    padding: 3px;
+    font-size: 105%;
+}
+#settings{
+    margin-top: 35px;
+    padding-left: 11px;
+}
+#settings p{
+    display: inline;
+}
+#settings input{
+    margin: 5px 5px 5px 0;
+}
+#settings label{
+    float: right;
+    margin-right: 15px;
+}
+
+#settings input{
+    opacity: 0;
+}
+
+#settings label{
+    margin-top: 4px;
+    top: -9px;
+    width: 100px;
+    height: 35px;
+    position: relative;
+    border-radius: 30px;
+    background: rgb(138,138,138);
+    background: -webkit-linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
+    background: -moz-linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
+    background: -o-linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
+    background: -ms-linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
+    background: linear-gradient(top, rgba(138,138,138,1) 0%, rgba(140,140,140,1) 14%, rgba(159,159,159,1) 72%, rgba(164,164,164,1) 100%);
+    box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+    line-height: 36px;
+    font-style: normal;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    font-weight: bold;
+    -webkit-box-reflect: below 0px
+    -webkit-gradient(linear, left top, left bottom,
+            color-stop(0.5, transparent),
+            to(rgba(255, 255, 255, 0.3)));
+    cursor: pointer;
+}
+
+#settings label i{
+    position: absolute;
+    top: -3px;
+    right: 68px;
+    width: 38px;
+    height: 38px;
+    border-radius: 20px;
+    background: rgb(255,255,255);
+    background: -webkit-linear-gradient(top, #FFFFFF 0%, #FCFCFC 11%, #E4E4E4 50%, #DDDDDD 53%, #CDCDCD 97%, #BFBFBF 100%);
+    background: -moz-linear-gradient(top, #FFFFFF 0%, #FCFCFC 11%, #E4E4E4 50%, #DDDDDD 53%, #CDCDCD 97%, #BFBFBF 100%);
+    background: -o-linear-gradient(top, #FFFFFF 0%, #FCFCFC 11%, #E4E4E4 50%, #DDDDDD 53%, #CDCDCD 97%, #BFBFBF 100%);
+    background: -ms-linear-gradient(top, #FFFFFF 0%, #FCFCFC 11%, #E4E4E4 50%, #DDDDDD 53%, #CDCDCD 97%, #BFBFBF 100%);
+    background: linear-gradient(top, #FFFFFF 0%, #FCFCFC 11%, #E4E4E4 50%, #DDDDDD 53%, #CDCDCD 97%, #BFBFBF 100%);
+    box-shadow: inset 0 -3px 3px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.4), 0 2px 0 0 rgba(0, 0, 0, 0.2);
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+#settings label i:before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 21px;
+    height: 21px;
+    margin: -10px 0 0 -11px;
+    border-radius: 18px;
+    background: rgb(239,239,239);
+    background: -webkit-linear-gradient(top, #EFEFEF 0%, #E1E1E1 6%, #E1E1E1 24%, #E5E5E5 94%, #F2F2F2 100%);
+    background: -moz-linear-gradient(top, #EFEFEF 0%, #E1E1E1 6%, #E1E1E1 24%, #E5E5E5 94%, #F2F2F2 100%);
+    background: -o-linear-gradient(top, #EFEFEF 0%, #E1E1E1 6%, #E1E1E1 24%, #E5E5E5 94%, #F2F2F2 100%);
+    background: -ms-linear-gradient(top, #EFEFEF 0%, #E1E1E1 6%, #E1E1E1 24%, #E5E5E5 94%, #F2F2F2 100%);
+    background: linear-gradient(top, #EFEFEF 0%, #E1E1E1 6%, #E1E1E1 24%, #E5E5E5 94%, #F2F2F2 100%);
+    box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.1);
+}
+#settings label:before{
+    content: "OFF";
+    margin-left: 39px;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+
+#settings label:active i:before {
+    box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.3);
+}
+
+.activechkbx:before{
+    content: "ON" !important;
+    margin-left: 17px !important;
+}
+.activechkbx i{
+    right: -2px !important;
+}
+
+.activechkbx{
+    background: rgb(141,173,51) !important;
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%) !important;
+    background: -moz-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%) !important;
+    background: -o-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%) !important;
+    background: -ms-radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%) !important;
+    background: radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%) !important;
+}
+
+#page2 .outerimg{
+    max-width: 658px;
+    max-height: 211px;
+    overflow: hidden;
+    border: 2px solid green;
+    position: relative;
+}
+#page2 #VideoSource{
+    margin: -5px 0 0 -5px;
+}
+#page2 .betweeniswhite{
+    height: 215px;
+    width: 2px;
+    background-color: #FFF;
+    top: 0;
+    left: 281px;
+    position: absolute;
+    border-left: 2px solid #008000;
+    border-right: 2px solid #008000;
+}
+#page2 .between2{
+    left: 327px;
+}
+#page2 .between3{
+    left: 375px;
+}
+#view{
+    margin-top: 40px;
+}
+#click1, #click2{
+    top: 0;
+    position: absolute;
+    height: 215px;
+    width: 282px;
+    cursor: pointer;
+}
+#click1{
+    left: 0;
+}
+#click2{
+    left: 379px;
+}
+#page2 #audio{
+    position: relative;
+    width: 540px;
+    margin: 20px auto;
+}
+#page2 #audio div:last-of-type{
+    position: relative;
+    top: -1.2em;
+    float: right;
+}
+#page2 #audio div:nth-last-of-type(2){
+    position: absolute;
+    top: 4px;
+    left: 63px;
+}
+#page2 #audio span{
+    width: 18px;
+    height: 35px;
+    top: -9px;
+    margin-left: -11px;
+}
+#page2 #audio .ui-widget{
+    min-width: 400px !important;
+}
+
+/*Page 3*/
+#page3{
+    position: relative;
+    top: -887px;
+    left: 1400px;
+}
+#cameramovement{
+    max-width: 200px;
+    height: 200px;
+    margin: 35px auto;
+}
+.camcontrols{
+    width: 60px;
+    height: 60px;
+    background-color: #292F33;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    text-align: center;
+    color: #FFF;
+    font-size: 200%;
+    font-weight: bolder;
+    line-height: 47px;
+    cursor: pointer;
+}
+.camcontrols:nth-of-type(3n){
+    margin-right: 0;
+}
+.camcontrols:nth-of-type(7), .camcontrols:nth-of-type(9){
+    line-height: 57px;
+}
+.opHome img{
+    max-width: 55px;
+    margin: 3px;
+}
+.zoomi, .zoomo{
+    line-height: 59px;
+    position: relative;
+    left: 130px;
+}
+.zoomo{
+    line-height: 50px;
+    top: 70px;
+    left: 60px;
+}
