@@ -1,6 +1,18 @@
 $(document).ready(function(){
-    //Gets rid of any errors
+    /*Gets rid of any errors*/
     $("#errorfield").empty();
+
+    var urldata = window.location.href.split("?")[1];
+    if(urldata != null){
+        var userpassraw = urldata.split("&");
+        if(userpassraw[0] != null){
+            var first = userpassraw[0].split("=");
+            if(first[0].toLowerCase() == "ip"){
+                $("#ipform").val(first[1]);
+            }
+        }
+    }
+    $("#login").remove();
 
     if(getCookie("understandcookie") == "true") $('#cookieinfo').remove();
 
@@ -9,8 +21,8 @@ $(document).ready(function(){
 });
 
 function checkValidLogin(givenip, givenpass){
-    //TODO: change this
-    var ip = ""; var password = "";
+
+    var ip; var password;
     if(givenip != null && givenpass != null){
         ip = givenip;
         password = givenpass;

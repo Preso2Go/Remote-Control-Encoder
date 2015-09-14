@@ -218,7 +218,7 @@ input[type=text], textarea{
     min-width: 95%;
     max-width: 95%;
     min-height: 30px !important;
-    max-height: 240px !important;
+    max-height: 145px !important;
     padding: 3px;
     font-size: 105%;
 }
@@ -336,12 +336,14 @@ input[type=text], textarea{
 
 #page2 .outerimg{
     max-width: 658px;
+    min-width: 658px;
     max-height: 211px;
+    min-height: 211px;
     overflow: hidden;
     border: 2px solid green;
     position: relative;
 }
-#page2 #VideoSource{
+#page2 .VideoSource{
     margin: -5px 0 0 -5px;
 }
 #page2 .betweeniswhite{
@@ -375,6 +377,9 @@ input[type=text], textarea{
 }
 #click2{
     left: 379px;
+}
+#volumetitle{
+    margin: 15px 0 -15px 63px;
 }
 #page2 #audio{
     position: relative;
@@ -410,7 +415,7 @@ input[type=text], textarea{
 #cameramovement{
     max-width: 200px;
     height: 200px;
-    margin: 35px auto;
+    margin-left: 231px;
 }
 .camcontrols{
     width: 60px;
@@ -433,17 +438,46 @@ input[type=text], textarea{
 .camcontrols:nth-of-type(7), .camcontrols:nth-of-type(9){
     line-height: 57px;
 }
-.opHome img{
+#opHome img{
     max-width: 55px;
     margin: 3px;
 }
-.zoomi, .zoomo{
+#zoomi, #zoomo{
     line-height: 59px;
     position: relative;
     left: 130px;
 }
-.zoomo{
+#zoomo{
     line-height: 50px;
     top: 70px;
     left: 60px;
+}
+#leftimg, #rightimg{
+    position: relative;
+    max-width: 279px;
+    min-width: 279px;
+    max-height: 211px;
+    min-height: 211px;
+    overflow: hidden;
+    border: solid 2px orange;
+}
+#page3 .VideoSourcep3{
+    margin: -5px 0 0 -5px;
+}
+#rightimg .VideoSourcep3{
+    margin-left: -384px;
+}
+#rightimg{
+    left: 282px;
+    top: -215px;
+}
+#p3images{
+    margin: 0 auto;
+    max-width: 566px;
+    max-height: 217px;
+    margin-bottom: 40px;
+}
+#allcamcontrols{
+    margin: 0 auto;
+    max-width: 600px;
 }
