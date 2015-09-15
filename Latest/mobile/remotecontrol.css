@@ -298,13 +298,15 @@ input[type=text], textarea{
     background: radial-gradient(center, ellipse cover, rgba(141,173,51,1) 0%, rgba(146,178,55,1) 24%, rgba(157,187,64,1) 55%, rgba(166,194,78,1) 100%) !important;
 }
 #page2 .outerimg{
+    min-width: 791px;
     max-width: 791px;
+    min-height: 253px;
     max-height: 253px;
     overflow: hidden;
     border: 5px solid green;
     position: relative;
 }
-#page2 #VideoSource{
+#page2 .VideoSource{
     margin: -5px 0 0 -5px;
     width: 800px;
 }
@@ -407,6 +409,11 @@ input[type=text], textarea{
     margin-left: -3px;
 }
 
+#page3{
+    left: 1800px;
+    top: -1830px;
+    position: relative;
+}
 
 @media screen and (min-width: 1024px) {
     html{

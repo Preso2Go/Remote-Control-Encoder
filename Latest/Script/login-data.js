@@ -49,5 +49,4 @@ function checkValidLogin(givenip, givenpass){
             $("#errorfield").empty().prepend("Whoops, seems like there is something wrong with your login credentials!");
         }
     });
-
 }

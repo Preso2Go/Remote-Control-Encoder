@@ -143,40 +143,54 @@ function initializeremotecontrollerevents(){
     });
 
     /*Pages*/
-    var p2defaultimgvideo;
-    var p2defaultimgslide;
-    var p3defaultimgvideo;
+    $(".item1, .item2, .item3").on("mousedown", function(){
+        $(this).attr("id", "navmousedown");
+    });
+    $("html").on("mouseup", function(){
+        $(".item1, .item2, .item3").removeAttr("id");
+    });
+    var p2defaultimgvideo, p2defaultimgslide;
+    var p3defaultimgvideo, p3defaultimgslide;
     //TODO: Fix it so when you click the other button the animation does not just finished and goes back, but goes back from that point.
-    $("#item1").on('click', function(){
+    $(".item1").on('click', function(){
         initializesingleimagevent(".VideoSource");
-
+        //initializesingleimagevent(".SlideSource");
+        stopandhidepopoutimgp2();
         $("#page2, #info, #page3").stop(false, true);
-        $("#item1").attr("class", "menuitems active");
-        $("#item2, #item3").attr("class", "menuitems");
+        $(".item1").attr("class", "item1 active");
+        $(".item2").attr("class", "item2");
+        $(".item3").attr("class", "item3");
+
         $("#page3").animate({
             left: "1400px"
         }, 700, function(){
             clearInterval(p3defaultimgvideo);
+            clearInterval(p3defaultimgslide);
         });
         $("#page2").animate({
             left: "700px"
         }, 700, function(){
             clearInterval(p2defaultimgvideo);
+            clearInterval(p2defaultimgslide);
         });
         $("#info").animate({
             left: 0
         }, 700);
     });
-    $("#item2").on('click', function(){
-        p2defaultimgvideo = initializeimagevent(".VideoSource", 5000);
-
+    $(".item2").on('click', function(){
+        p2defaultimgvideo = initializeimagevent(".VideoSource", 4000);
+        //p2defaultimgslide = initializeimagevent(".SlideSource", 5000);
+        stopandhidepopoutimgp2();
         $("#page2, #info, #page3").stop(false, true);
-        $("#item2").attr("class", "menuitems active");
-        $("#item1, #item3").attr("class", "menuitems");
+        $(".item1").attr("class", "item1");
+        $(".item2").attr("class", "item2 active");
+        $(".item3").attr("class", "item3");
+
         $("#page3").animate({
             left: "700px"
         }, 700, function(){
             clearInterval(p3defaultimgvideo);
+            clearInterval(p3defaultimgslide);
         });
         $("#page2").animate({
             left: 0
@@ -185,13 +199,17 @@ function initializeremotecontrollerevents(){
             left: "-700px"
         }, 700);
     });
-    $("#item3").on('click', function(){
+    $(".item3").on('click', function(){
         initializesingleimagevent(".VideoSource");
-        p3defaultimgvideo = initializeimagevent(".VideoSourcep3", 700);
-
+        //initializesingleimagevent(".SlideSource");
+        p3defaultimgvideo = initializeimagevent(".VideoSourcep3", 500);
+        p3defaultimgslide = initializeimagevent(".SlideSourcep3", 2000);
+        stopandhidepopoutimgp2();
         $("#page2, #info, #page3").stop(false, true);
-        $("#item3").attr("class", "menuitems active");
-        $("#item1, #item2").attr("class", "menuitems");
+        $(".item1").attr("class", "item1");
+        $(".item2").attr("class", "item2");
+        $(".item3").attr("class", "item3 active");
+
         $("#page3").animate({
             left: 0
         }, 700);
@@ -199,6 +217,7 @@ function initializeremotecontrollerevents(){
             left: "-700px"
         }, 700, function(){
             clearInterval(p2defaultimgvideo);
+            clearInterval(p2defaultimgslide);
         });
         $("#info").animate({
             left: "-1400px"
@@ -208,20 +227,52 @@ function initializeremotecontrollerevents(){
     /*Images on page 2*/
     //TODO: When click on the image, popup screen appears. and the image is shown and updated very fast.
     $("#click1").on('click', function() {
-        /*var password = getCookie("password");
-        var intervalimgclick1 = setTimeout(function () {
+        clearInterval(window.intervalimgclick);
+        var password = getCookie("password");
+        var ip = getCookie("ip");
+        var d = new Date();
+        var url = "http://" + ip + "?action=getvisualelement&actiondetail=status&user=presentations2go&password=" + password + "&hour=" + d.getHours() + "&sec=" + d.getSeconds() + "&milisec=" + d.getMilliseconds();
+        $("#imgpopupinner img").attr("src", url).attr("id", "imgpopup1");
+        $("#imgpopupouter").css("visibility", "visible");
+
+        window.intervalimgclick = setInterval(function () {
             var d = new Date();
-            var url = "http://" + getCookie("ip") + "?action=getvisualelement&actiondetail=status&user=presentations2go&password=" + password + "&min=" + d.getSeconds();
-            $("#imgclick1").attr("src", url);
-        }, 200);*/
+            var url = "http://" + ip + "?action=getvisualelement&actiondetail=status&user=presentations2go&password=" + password + "&hour=" + d.getHours() + "&sec=" + d.getSeconds() + "&milisec=" + d.getMilliseconds();
+            $("#imgpopupinner img").attr("src", url);
+        }, 900);
     });
     $("#click2").on('click', function(){
-        /*var password = getCookie("password");
-        var intervalimgclick2 = setTimeout(function () {
+        clearInterval(window.intervalimgclick);
+        var password = getCookie("password");
+        var ip = getCookie("ip");
+        var d = new Date();
+        var url = "http://" + ip + "?action=getvisualelement&actiondetail=status&user=presentations2go&password=" + password + "&hour=" + d.getHours() + "&sec=" + d.getSeconds() + "&milisec=" + d.getMilliseconds();
+        $("#imgpopupinner img").attr("src", url).attr("id", "imgpopup2");
+        $("#imgpopupouter").css("visibility", "visible");
+
+        window.intervalimgclick = setInterval(function () {
             var d = new Date();
-            var url = "http://" + getCookie("ip") + "?action=getvisualelement&actiondetail=status&user=presentations2go&password=" + password + "&min=" + d.getSeconds();
-            $("#imgclick2").attr("src", url);
-        }, 200);*/
+            var url = "http://" + ip + "?action=getvisualelement&actiondetail=status&user=presentations2go&password=" + password + "&hour=" + d.getHours() + "&sec=" + d.getSeconds() + "&milisec=" + d.getMilliseconds();
+            $("#imgpopupinner img").attr("src", url);
+        }, 900);
+    });
+    $("#imgpopupouter, #closeimgbtn").on("mouseover", function(){
+       if($("#imgpopupouter").css("visibility") != "hidden" && $("#closeimgbtn").css("visibility") == "hidden"){
+           $("#closeimgbtn").css("visibility", "visible");
+       }
+    }).on("mouseout", function(){
+        if($("#imgpopupouter").css("visibility") != "hidden" && $("#closeimgbtn").css("visibility") == "visible"){
+            $("#closeimgbtn").css("visibility", "hidden");
+        }
+    });
+    $("#closeimgbtn").on("click", function(){
+        stopandhidepopoutimgp2();
+    });
+    $('html').on('keypress', function (e) {
+        if(e.which == 27)  /* the esc key code*/
+        {
+            stopandhidepopoutimgp2();
+        }
     });
 
     /*The delay nr buttons on mobile*/
@@ -239,22 +290,51 @@ function initializeremotecontrollerevents(){
     /*Events for remotecontroller on mobile*/
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile Safari|NokiaBrowser/i.test(navigator.userAgent) ) {
         $("#maincontainer").on("swipeleft", function(){
+            var swipeleftfunction;
             if($("#info").css("left") != "-1400px" && window.currentorgotoscreen < 2){
                 window.currentorgotoscreen += 1;
-                /*initializeimagevent("#VideoSource");*/
-                /*initializeimagevent("#SlideSource");*/
-                $("#page2, #info").animate({
+                stopandhidepopoutimgp2();
+                console.log(window.currentorgotoscreen);
+                if(window.currentorgotoscreen == 1){
+                    p2defaultimgvideo = initializeimagevent(".VideoSource", 4000);
+                    //p2defaultimgslide = initializeimagevent(".SlideSource", 5000);
+                    swipeleftfunction = function(){};
+                }else if(window.currentorgotoscreen == 2){
+                    p3defaultimgvideo = initializeimagevent(".VideoSourcep3", 500);
+                    p3defaultimgslide = initializeimagevent(".SlideSourcep3", 2000);
+                    swipeleftfunction = function(){
+                        clearInterval(p2defaultimgvideo);
+                        clearInterval(p2defaultimgslide);
+                    };
+                }
+                $("#page3, #page2, #info").animate({
                     left: "-=900px"
-                }, 700);
+                }, 700, swipeleftfunction());
             }
         }).on("swiperight", function(){
+            var swiperightfunction;
             if($("#info").css("left") != "0px" && window.currentorgotoscreen > 0){
                 window.currentorgotoscreen -= 1;
-                /*initializeimagevent("#VideoSource");*/
-                /*initializeimagevent("#SlideSource");*/
-                $("#page2, #info").animate({
+                console.log(window.currentorgotoscreen);
+                stopandhidepopoutimgp2();
+                if(window.currentorgotoscreen == 1){
+                    p2defaultimgvideo = initializeimagevent(".VideoSource", 4000);
+                    //p2defaultimgslide = initializeimagevent(".SlideSource", 5000);
+                    swiperightfunction = function(){
+                        clearInterval(p3defaultimgvideo);
+                        clearInterval(p3defaultimgslide);
+                    }
+                }else if(window.currentorgotoscreen == 0){
+                    swiperightfunction = function(){
+                        clearInterval(p3defaultimgvideo);
+                        clearInterval(p3defaultimgslide);
+                        clearInterval(p2defaultimgvideo);
+                        clearInterval(p2defaultimgslide);
+                    }
+                }
+                $("#page3, #page2, #info").animate({
                     left: "+=900px"
-                }, 700);
+                }, 700, swiperightfunction());
             }
         });
         var slider = $("#slider").slider({
@@ -265,26 +345,8 @@ function initializeremotecontrollerevents(){
             setConfiguration("mastervolume",ui.value);
         });
 
-    //Events for remotecontroller on desktop*/
+    /*Events for remotecontroller on desktop*/
     }else{
-        /*$("#maincontainer").on("swipeleft", function(){
-            console.log("swiped left");
-            if($("#info").css("left") != "-1400px"){
-
-                $("#page2, #info").animate({
-                    left: "-=700px"
-                }, 700);
-            }
-        }).on("swiperight", function(){
-            console.log("swiped right");
-            if($("#info").css("left") != "0px"){
-                initializeimagevent("#VideoSource");
-                initializeimagevent("#SlideSource");
-                $("#page2, #info").animate({
-                    left: "+=700px"
-                }, 700);
-            }
-        });*/
         var slider = $("#slider").slider({
             animation: true,
             value: 0,
@@ -459,4 +521,10 @@ function checkdelaynr(nr){
             closeOnConfirm: true
         });
     }
+}
+
+function stopandhidepopoutimgp2(){
+    $("#imgpopupouter").css("visibility", "hidden");
+    $("#closeimgbtn").css("visibility", "hidden");
+    clearInterval(window.intervalimgclick);
 }
