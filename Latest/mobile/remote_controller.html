@@ -30,6 +30,7 @@
 
     <link href="main.css" rel="stylesheet" type="text/css">
     <link href="remotecontrol.css" rel="stylesheet" type="text/css">
+</head>
 <body>
 <div id="maincontainer">
     <div id="controls">
@@ -101,7 +102,6 @@
         <div id="imgpopupouter">
             <div id="imgpopupinner">
                 <img>
-
             </div>
         </div>
         <div id="closeimgbtn">&#10006;</div>
@@ -112,21 +112,27 @@
             <div id="leftimg"><img class="VideoSourcep3"></div>
             <div id="rightimg"><img class="SlideSourcep3"></div>
         </div>
-        <div id="cameramovement">
-            <div class="camcontrols op1"></div>
-            <div class="camcontrols op2"></div>
-            <div class="camcontrols op3"></div>
-            <br>
-            <div class="camcontrols op4"></div>
-            <div class="camcontrols opHome"></div>
-            <div class="camcontrols op5"></div>
-            <br>
-            <div class="camcontrols op6"></div>
-            <div class="camcontrols op7"></div>
-            <div class="camcontrols op8"></div>
-            <br>
+        <div id="allcamcontrols">
+            <div class="camcontrols" id="zoomi">+</div>
+            <div class="camcontrols" id="zoomo">-</div>
+            <div id="cameramovement">
+                <div class="camcontrols" id="op1">&#8598;</div>
+                <div class="camcontrols" id="op2">&#8593;</div>
+                <div class="camcontrols" id="op3">&#8599;</div>
+                <div class="camcontrols" id="op4">&#8592;</div>
+                <div class="camcontrols" id="opHome"><img src="../img/home.png" alt="Home"></div>
+                <div class="camcontrols" id="op5">&#8594;</div>
+                <div class="camcontrols" id="op6">&#8601;</div>
+                <div class="camcontrols" id="op7">&#8595;</div>
+                <div class="camcontrols" id="op8">&#8600;</div>
+            </div>
         </div>
     </div>
+</div>
+<div id="pageindicators">
+    <div class="ball activepageindicator" id="bp1"></div>
+    <div class="ball" id="bp2"></div>
+    <div class="ball" id="bp3"></div>
 </div>
 </body>
 </html>

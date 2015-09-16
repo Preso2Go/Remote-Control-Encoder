@@ -4,6 +4,34 @@
     color: orange;
     text-align: center;
 }
+#pageindicators{
+    border-radius: 15px;
+    height: 40px;
+    width: 210px;
+    left: 50%;
+    margin-left: -105px;
+    position: fixed;
+    padding: 10px 0 7px 0;
+    bottom: 40px;
+}
+.activepageindicator{
+    box-shadow: inset 2px 2px 10px black !important;
+    border: 1px solid rgba(131, 131, 131, 0.68) !important;
+}
+.ball{
+    box-shadow: 1px 2px 3px rgba(255, 255, 255, 0.8) inset, 1px 1px 9px rgba(43, 43, 43, 0.6);
+    border: 1px solid rgba(126, 126, 126, 0.31);
+    width: 35px;
+    height: 35px;
+    background-color: #c9c9c9;
+    border-radius: 55%;
+    float: left;
+    margin-right: 45px;
+    cursor: pointer;
+}
+.ball:last-of-type{
+    margin-right: 0;
+}
 
 #controls, #metadata, #settings, #moresettings{
     width: 755px;
@@ -50,7 +78,7 @@
 .liverecording p{
     border-color: rgba(218, 218, 218, 0.7) !important;
 }
-#recpausebtn, #stopbtn, #capturenowbtn, #settings label, #logout, #updatemetadata, #min, #plus{
+#recpausebtn, #stopbtn, #capturenowbtn, #settings label, #logout, #updatemetadata, #menu .menuitems, #view, .camcontrols, #closeimgbtn, img, nav{
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -305,10 +333,11 @@ input[type=text], textarea{
     overflow: hidden;
     border: 5px solid green;
     position: relative;
+    border-radius: 8px;
 }
 #page2 .VideoSource{
-    margin: -5px 0 0 -5px;
-    width: 800px;
+    margin: -7px 0 0 -7px;
+    width: 804px;
 }
 #page2 .betweeniswhite{
     height: 262px;
@@ -408,11 +437,161 @@ input[type=text], textarea{
     border-radius: 0 10px 10px 0;
     margin-left: -3px;
 }
+#imgpopupouter{
+    visibility: hidden;
+    max-height: 457px;
+    min-height: 457px;
+    max-width: 600px;
+    min-width: 600px;
+    position: relative;
+    top: -428px;
+    left: 102px;
+    background: -webkit-linear-gradient(0deg, #003973 10%, #E5E5BE 90%); /* Chrome 10+, Saf5.1+ */
+    background:    -moz-linear-gradient(0deg, #003973 10%, #E5E5BE 90%); /* FF3.6+ */
+    background:     -ms-linear-gradient(0deg, #003973 10%, #E5E5BE 90%); /* IE10 */
+    background:      -o-linear-gradient(0deg, #003973 10%, #E5E5BE 90%); /* Opera 11.10+ */
+    background:         linear-gradient(0deg, #003973 10%, #E5E5BE 90%); /* W3C */
+    z-index: 9;
+}
+#imgpopupinner {
+    min-width: 576px;
+    max-width: 576px;
+    min-height: 435px;
+    max-height: 435px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    top: 9px;
+}
+#imgpopupinner img{
+    min-width: 1380px;
+    min-height: 619px;
+    position: relative;
+    top: -8px;
+}
+#imgpopupinner #imgpopup1{
+    left: -10px;
+}
+#imgpopupinner #imgpopup2{
+    left: -794px;
+}
+#closeimgbtn{
+    -moz-box-shadow: 0 2px 7px -2px #000000;
+    -webkit-box-shadow: 0 2px 7px -2px #000000;
+    box-shadow: 0 2px 7px -2px #000000;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ff6161), color-stop(1, #c2000d));
+    background: -moz-linear-gradient(top, #ff6161 5%, #c2000d 100%);
+    background: -webkit-linear-gradient(top, #ff6161 5%, #c2000d 100%);
+    background: -o-linear-gradient(top, #ff6161 5%, #c2000d 100%);
+    background: -ms-linear-gradient(top, #ff6161 5%, #c2000d 100%);
+    background: linear-gradient(to bottom, #ff6161 5%, #c2000d 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff6161', endColorstr='#c2000d',GradientType=0);
+    background-color: #ff6161;
+    -moz-border-radius: 42px;
+    -webkit-border-radius: 42px;
+    border-radius: 80px;
+    display: inline-block;
+    color: #FFF;
+    font-size: 50px;
+    min-width: 80px;
+    min-height: 82px;
+    text-align: center;
+    line-height: 81px;
+    text-decoration: none;
+    text-shadow: 0 2px 1px rgba(39, 38, 38, 0.5);
+    visibility: hidden;
+    position: relative;
+    top: -907px;
+    left: 642px;
+    padding-left: 3px;
+    z-index: 9;
+}
+#closeimgbtn:active{
+    position:relative;
+    top: -905px;
+}
 
+/*Page 3*/
 #page3{
     left: 1800px;
-    top: -1830px;
+    top: -2260px;
     position: relative;
+}
+#cameramovement{
+    max-width: 415px;
+    height: 415px;
+    margin-left: 280px;
+}
+.camcontrols{
+    width: 130px;
+    height: 130px;
+    background-color: #292F33;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    text-align: center;
+    color: #FFF;
+    font-size: 200%;
+    font-weight: bolder;
+    line-height: 107px;
+    cursor: pointer;
+}
+.camcontrols:nth-of-type(3n){
+    margin-right: 0;
+}
+.camcontrols:nth-of-type(7), .camcontrols:nth-of-type(9){
+    line-height: 132px;
+}
+#opHome img{
+    max-width: 115px;
+    margin: 7px;
+}
+#zoomi, #zoomo{
+    line-height: 127px;
+    position: relative;
+    left: 100px;
+    top: 72px;
+}
+#zoomo{
+    line-height: 117px;
+    top: 214px;
+    left: -40px;
+}
+#leftimg, #rightimg{
+    position: relative;
+    max-width: 502px;
+    min-width: 502px;
+    max-height: 381px;
+    min-height: 381px;
+    overflow: hidden;
+    border: solid 5px orange;
+}
+#page3 #p3images img{
+    margin: -9px 0 0 -7px;
+    min-width: 1207px;
+}
+#rightimg img{
+    margin-left: -694px !important;
+}
+#rightimg{
+    top: -115px;
+    left: 232px;
+    z-index: -1;
+}
+#leftimg{
+    box-shadow: 2px 3px 12px rgba(29, 29, 29, 0.6);
+}
+#p3images{
+    margin: 0 auto 40px;
+    max-width: 680px;
+    max-height: 690px;
+}
+#allcamcontrols{
+    max-width: 700px;
+}
+.VideoSourcep3{
+    margin-left: -9px !important;
 }
 
 @media screen and (min-width: 1024px) {
@@ -514,6 +693,74 @@ input[type=text], textarea{
     p{
         margin-top: -20px;
         margin-bottom: 15px;
+    }
+    #imgpopupouter{
+        top: -490px;
+    }
+    #closeimgbtn{
+        top: -968px;
+    }
+    #closeimgbtn:active{
+        top: -963px;
+    }
+    /*Page 3*/
+    #cameramovement{
+        max-width: 295px;
+        margin-left: 200px;
+    }
+    .camcontrols{
+        width: 90px;
+        height: 90px;
+        line-height: 83px;
+    }
+    .camcontrols:nth-of-type(7), .camcontrols:nth-of-type(9) {
+        line-height: 107px;
+    }
+    #zoomi, #zoomo {
+        line-height: 93px;
+        left: 80px;
+        top: 50px;
+    }
+    #zoomo {
+        line-height: 87px;
+        top: 150px;
+        left: -20px;
+    }
+    #opHome img {
+        max-width: 92px;
+        margin: 0;
+    }
+    #allcamcontrols{
+        margin: 125px 0 0 305px;
+        top: -500px;
+        position: relative;
+        max-width: 100%;
+    }
+    #leftimg, #rightimg{
+        min-width: 298px;
+        max-width: 298px;
+        min-height: 225px;
+        max-height: 225px;
+    }
+    #page3 #p3images img{
+        min-width: 725px;
+    }
+    #page3{
+        top: -1523px;
+    }
+    #rightimg{
+        top: -5px;
+        left: 0;
+    }
+    #leftimg{
+        box-shadow: none;
+    }
+    #p3images{
+        margin: 0;
+        max-width: 315px;
+    }
+    #rightimg img{
+        margin-left: -419px !important;
     }
 }
 

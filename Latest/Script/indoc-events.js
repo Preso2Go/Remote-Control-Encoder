@@ -3,8 +3,21 @@ function initializeremotecontrollerevents(){
     window.isrecording = false;
     window.countingdown = false;
     window.currentorgotoscreen = 0;
+    window.p2defaultimgvideo = null;
+    window.p2defaultimgslide = null;
+    window.p3defaultimgvideo = null;
+    window.p3defaultimgslide = null;
 
     if(getCookie("password") == "" || getCookie("password") == null) window.location.href = "./";
+    $("#bp1").on("click", function(){
+        gotopage1();
+    });
+    $("#bp2").on("click", function(){
+        gotopage2();
+    });
+    $("#bp3").on("click", function(){
+        gotopage3();
+    });
 
     /*Metadata*/
     $("#metatitle").on("input propertychange paste",function(){
@@ -149,79 +162,20 @@ function initializeremotecontrollerevents(){
     $("html").on("mouseup", function(){
         $(".item1, .item2, .item3").removeAttr("id");
     });
-    var p2defaultimgvideo, p2defaultimgslide;
-    var p3defaultimgvideo, p3defaultimgslide;
-    //TODO: Fix it so when you click the other button the animation does not just finished and goes back, but goes back from that point.
-    $(".item1").on('click', function(){
-        initializesingleimagevent(".VideoSource");
-        //initializesingleimagevent(".SlideSource");
-        stopandhidepopoutimgp2();
-        $("#page2, #info, #page3").stop(false, true);
-        $(".item1").attr("class", "item1 active");
-        $(".item2").attr("class", "item2");
-        $(".item3").attr("class", "item3");
 
-        $("#page3").animate({
-            left: "1400px"
-        }, 700, function(){
-            clearInterval(p3defaultimgvideo);
-            clearInterval(p3defaultimgslide);
-        });
-        $("#page2").animate({
-            left: "700px"
-        }, 700, function(){
-            clearInterval(p2defaultimgvideo);
-            clearInterval(p2defaultimgslide);
-        });
-        $("#info").animate({
-            left: 0
-        }, 700);
+    //TODO: Fix it so when you click the other button the animation does not just finished and goes back, but goes back from that point.
+    /* When going to another screen, and that screen has a picture updating automatically,
+    * this will initialize the picture updating and remove the updating when the user goes away from that screen.
+    * When going from the first to the 3th screen or the other way around, one picure will be loaded on page 2, so that is also updated.
+    */
+    $(".item1").on('click', function(){
+        gotopage1();
     });
     $(".item2").on('click', function(){
-        p2defaultimgvideo = initializeimagevent(".VideoSource", 4000);
-        //p2defaultimgslide = initializeimagevent(".SlideSource", 5000);
-        stopandhidepopoutimgp2();
-        $("#page2, #info, #page3").stop(false, true);
-        $(".item1").attr("class", "item1");
-        $(".item2").attr("class", "item2 active");
-        $(".item3").attr("class", "item3");
-
-        $("#page3").animate({
-            left: "700px"
-        }, 700, function(){
-            clearInterval(p3defaultimgvideo);
-            clearInterval(p3defaultimgslide);
-        });
-        $("#page2").animate({
-            left: 0
-        }, 700);
-        $("#info").animate({
-            left: "-700px"
-        }, 700);
+        gotopage2();
     });
     $(".item3").on('click', function(){
-        initializesingleimagevent(".VideoSource");
-        //initializesingleimagevent(".SlideSource");
-        p3defaultimgvideo = initializeimagevent(".VideoSourcep3", 500);
-        p3defaultimgslide = initializeimagevent(".SlideSourcep3", 2000);
-        stopandhidepopoutimgp2();
-        $("#page2, #info, #page3").stop(false, true);
-        $(".item1").attr("class", "item1");
-        $(".item2").attr("class", "item2");
-        $(".item3").attr("class", "item3 active");
-
-        $("#page3").animate({
-            left: 0
-        }, 700);
-        $("#page2").animate({
-            left: "-700px"
-        }, 700, function(){
-            clearInterval(p2defaultimgvideo);
-            clearInterval(p2defaultimgslide);
-        });
-        $("#info").animate({
-            left: "-1400px"
-        }, 700);
+        gotopage3();
     });
 
     /*Images on page 2*/
@@ -234,7 +188,6 @@ function initializeremotecontrollerevents(){
         var url = "http://" + ip + "?action=getvisualelement&actiondetail=status&user=presentations2go&password=" + password + "&hour=" + d.getHours() + "&sec=" + d.getSeconds() + "&milisec=" + d.getMilliseconds();
         $("#imgpopupinner img").attr("src", url).attr("id", "imgpopup1");
         $("#imgpopupouter").css("visibility", "visible");
-
         window.intervalimgclick = setInterval(function () {
             var d = new Date();
             var url = "http://" + ip + "?action=getvisualelement&actiondetail=status&user=presentations2go&password=" + password + "&hour=" + d.getHours() + "&sec=" + d.getSeconds() + "&milisec=" + d.getMilliseconds();
@@ -249,21 +202,11 @@ function initializeremotecontrollerevents(){
         var url = "http://" + ip + "?action=getvisualelement&actiondetail=status&user=presentations2go&password=" + password + "&hour=" + d.getHours() + "&sec=" + d.getSeconds() + "&milisec=" + d.getMilliseconds();
         $("#imgpopupinner img").attr("src", url).attr("id", "imgpopup2");
         $("#imgpopupouter").css("visibility", "visible");
-
         window.intervalimgclick = setInterval(function () {
             var d = new Date();
             var url = "http://" + ip + "?action=getvisualelement&actiondetail=status&user=presentations2go&password=" + password + "&hour=" + d.getHours() + "&sec=" + d.getSeconds() + "&milisec=" + d.getMilliseconds();
             $("#imgpopupinner img").attr("src", url);
         }, 900);
-    });
-    $("#imgpopupouter, #closeimgbtn").on("mouseover", function(){
-       if($("#imgpopupouter").css("visibility") != "hidden" && $("#closeimgbtn").css("visibility") == "hidden"){
-           $("#closeimgbtn").css("visibility", "visible");
-       }
-    }).on("mouseout", function(){
-        if($("#imgpopupouter").css("visibility") != "hidden" && $("#closeimgbtn").css("visibility") == "visible"){
-            $("#closeimgbtn").css("visibility", "hidden");
-        }
     });
     $("#closeimgbtn").on("click", function(){
         stopandhidepopoutimgp2();
@@ -278,17 +221,27 @@ function initializeremotecontrollerevents(){
     /*The delay nr buttons on mobile*/
     $("#min").on("click", function(){
         var nr = parseInt($("#delaynr").val());
-        $("#delaynr").val(nr -= 1);
-        checkdelaynr($("#delaynr").val());
+        if(nr > 0){
+            $("#delaynr").val(nr -= 1);
+            checkdelaynr($("#delaynr").val());
+        }
     });
     $("#plus").on("click", function(){
         var nr = parseInt($("#delaynr").val());
-        $("#delaynr").val(nr += 1);
-        checkdelaynr($("#delaynr").val());
+        if(nr < 1000){
+            $("#delaynr").val(nr += 1);
+            checkdelaynr($("#delaynr").val());
+        }
     });
 
     /*Events for remotecontroller on mobile*/
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile Safari|NokiaBrowser/i.test(navigator.userAgent) ) {
+        /* currentgotoscreen:
+         * 0: Metadata
+         * 1: Video and sound
+         * 2: Camera Controls
+         */
+        /* When going to another screen, and that screen has a picture updating automatically, this will initialize the picture updating and remove the updating when the user goes away from that screen.*/
         $("#maincontainer").on("swipeleft", function(){
             var swipeleftfunction;
             if($("#info").css("left") != "-1400px" && window.currentorgotoscreen < 2){
@@ -296,16 +249,18 @@ function initializeremotecontrollerevents(){
                 stopandhidepopoutimgp2();
                 console.log(window.currentorgotoscreen);
                 if(window.currentorgotoscreen == 1){
-                    p2defaultimgvideo = initializeimagevent(".VideoSource", 4000);
-                    //p2defaultimgslide = initializeimagevent(".SlideSource", 5000);
+                    //window.p2defaultimgvideo = initializeimagevent(".VideoSource", 4000);
+                    ////window.p2defaultimgslide = initializeimagevent(".SlideSource", 5000);
                     swipeleftfunction = function(){};
+                    gotopage2("mobile");
                 }else if(window.currentorgotoscreen == 2){
-                    p3defaultimgvideo = initializeimagevent(".VideoSourcep3", 500);
-                    p3defaultimgslide = initializeimagevent(".SlideSourcep3", 2000);
+                    //window.p3defaultimgvideo = initializeimagevent(".VideoSourcep3", 500);
+                    //window.p3defaultimgslide = initializeimagevent(".SlideSourcep3", 2000);
                     swipeleftfunction = function(){
-                        clearInterval(p2defaultimgvideo);
-                        clearInterval(p2defaultimgslide);
+                        clearInterval(window.p2defaultimgvideo);
+                        clearInterval(window.p2defaultimgslide);
                     };
+                    gotopage3("mobile");
                 }
                 $("#page3, #page2, #info").animate({
                     left: "-=900px"
@@ -318,24 +273,34 @@ function initializeremotecontrollerevents(){
                 console.log(window.currentorgotoscreen);
                 stopandhidepopoutimgp2();
                 if(window.currentorgotoscreen == 1){
-                    p2defaultimgvideo = initializeimagevent(".VideoSource", 4000);
-                    //p2defaultimgslide = initializeimagevent(".SlideSource", 5000);
+                    //window.p2defaultimgvideo = initializeimagevent(".VideoSource", 4000);
+                    ////window.p2defaultimgslide = initializeimagevent(".SlideSource", 5000);
                     swiperightfunction = function(){
-                        clearInterval(p3defaultimgvideo);
-                        clearInterval(p3defaultimgslide);
-                    }
+                        clearInterval(window.p3defaultimgvideo);
+                        clearInterval(window.p3defaultimgslide);
+                    };
+                    gotopage2("mobile");
                 }else if(window.currentorgotoscreen == 0){
                     swiperightfunction = function(){
-                        clearInterval(p3defaultimgvideo);
-                        clearInterval(p3defaultimgslide);
-                        clearInterval(p2defaultimgvideo);
-                        clearInterval(p2defaultimgslide);
-                    }
+                        clearInterval(window.p3defaultimgvideo);
+                        clearInterval(window.p3defaultimgslide);
+                        clearInterval(window.p2defaultimgvideo);
+                        clearInterval(window.p2defaultimgslide);
+                    };
+                    gotopage1("mobile");
                 }
                 $("#page3, #page2, #info").animate({
                     left: "+=900px"
                 }, 700, swiperightfunction());
             }
+        }).on("swipe", function(){
+            stopandhidepopoutimgp2();
+        });
+        $("#click1").on('click', function() {
+            $("#closeimgbtn").css("visibility", "visible");
+        });
+        $("#click2").on('click', function(){
+            $("#closeimgbtn").css("visibility", "visible");
         });
         var slider = $("#slider").slider({
             animation: true,
@@ -343,6 +308,11 @@ function initializeremotecontrollerevents(){
             stop: function( event, ui ) {}
         }).on("slidestop", function( event, ui ){
             setConfiguration("mastervolume",ui.value);
+        });
+
+        $("#leftimg, #rightimg").on("click", function(){
+            if($("#rightimg").css("z-index") == "1") $("#rightimg").css("z-index", "-1");
+            else if($("#rightimg").css("z-index") == "-1") $("#rightimg").css("z-index", "1");
         });
 
     /*Events for remotecontroller on desktop*/
@@ -359,6 +329,15 @@ function initializeremotecontrollerevents(){
             min: 0,
             max: 1000,
             spin:  function(event, ui){checkdelaynr(ui.value)}
+        });
+        $("#imgpopupouter, #closeimgbtn").on("mouseover", function(){
+            if($("#imgpopupouter").css("visibility") != "hidden" && $("#closeimgbtn").css("visibility") == "hidden"){
+                $("#closeimgbtn").css("visibility", "visible");
+            }
+        }).on("mouseout", function(){
+            if($("#imgpopupouter").css("visibility") != "hidden" && $("#closeimgbtn").css("visibility") == "visible"){
+                $("#closeimgbtn").css("visibility", "hidden");
+            }
         });
     }
 
@@ -527,4 +506,90 @@ function stopandhidepopoutimgp2(){
     $("#imgpopupouter").css("visibility", "hidden");
     $("#closeimgbtn").css("visibility", "hidden");
     clearInterval(window.intervalimgclick);
+}
+
+function gotopage1(device){
+    initializesingleimagevent(".VideoSource");
+    //initializesingleimagevent(".SlideSource");
+    $(".ball").attr("class", "ball");
+    $("#bp1").attr("class", "ball activepageindicator");
+    stopandhidepopoutimgp2();
+    $("#page2, #info, #page3").stop(false, true);
+    $(".item1").attr("class", "item1 active");
+    $(".item2").attr("class", "item2");
+    $(".item3").attr("class", "item3");
+
+    if(device != "mobile"){
+        $("#page3").animate({
+            left: "1400px"
+        }, 700, function(){
+            clearInterval(window.p3defaultimgvideo);
+            clearInterval(window.p3defaultimgslide);
+        });
+        $("#page2").animate({
+            left: "700px"
+        }, 700, function(){
+            clearInterval(window.p2defaultimgvideo);
+            clearInterval(window.p2defaultimgslide);
+        });
+        $("#info").animate({
+            left: 0
+        }, 700);
+    }
+}
+
+function gotopage2(device){
+    window.p2defaultimgvideo = initializeimagevent(".VideoSource", 4000);
+    //window.p2defaultimgslide = initializeimagevent(".SlideSource", 5000);
+    $(".ball").attr("class", "ball");
+    $("#bp2").attr("class", "ball activepageindicator");
+    stopandhidepopoutimgp2();
+    $("#page2, #info, #page3").stop(false, true);
+    $(".item1").attr("class", "item1");
+    $(".item2").attr("class", "item2 active");
+    $(".item3").attr("class", "item3");
+
+    if(device != "mobile"){
+        $("#page3").animate({
+            left: "700px"
+        }, 700, function(){
+            clearInterval(window.p3defaultimgvideo);
+            clearInterval(window.p3defaultimgslide);
+        });
+        $("#page2").animate({
+            left: 0
+        }, 700);
+        $("#info").animate({
+            left: "-700px"
+        }, 700);
+    }
+}
+
+function gotopage3(device){
+    initializesingleimagevent(".VideoSource");
+    //initializesingleimagevent(".SlideSource");
+    window.p3defaultimgvideo = initializeimagevent(".VideoSourcep3", 500);
+    window.p3defaultimgslide = initializeimagevent(".SlideSourcep3", 2000);
+    $(".ball").attr("class", "ball");
+    $("#bp3").attr("class", "ball activepageindicator");
+    stopandhidepopoutimgp2();
+    $("#page2, #info, #page3").stop(false, true);
+    $(".item1").attr("class", "item1");
+    $(".item2").attr("class", "item2");
+    $(".item3").attr("class", "item3 active");
+
+    if(device != "mobile"){
+        $("#page3").animate({
+            left: 0
+        }, 700);
+        $("#page2").animate({
+            left: "-700px"
+        }, 700, function(){
+            clearInterval(window.p2defaultimgvideo);
+            clearInterval(window.p2defaultimgslide);
+        });
+        $("#info").animate({
+            left: "-1400px"
+        }, 700);
+    }
 }

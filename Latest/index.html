@@ -7,7 +7,9 @@
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
 	<script id="mobile" type="application/javascript">
 		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile Safari|NokiaBrowser/i.test(navigator.userAgent) ) {
-			window.location.href = "mobile/";
+			var urldata = window.location.href.split("?")[1];
+			if(urldata != null)window.location.href = "mobile/?" + urldata;
+			else window.location.href = "mobile/";
 		}else{
 			var element = document.getElementById("mobile");
 			element.parentNode.removeChild(element);

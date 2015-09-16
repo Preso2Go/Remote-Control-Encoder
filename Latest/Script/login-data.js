@@ -30,6 +30,7 @@ function checkValidLogin(givenip, givenpass){
         ip = encodeURIComponent($('#ipform').val());
         password = encodeURIComponent($('#passwordform').val());
     }
+    console.log(password);
     var Url = "http://" + ip + "?action=sendcommand&actiondetail=initializeremotecontrol&user=presentations2go&password=" + password;
     $.ajax({
 
@@ -39,11 +40,17 @@ function checkValidLogin(givenip, givenpass){
         async: false,
 
         success: function(json){
-            setCookie("ip", ip);
-            setCookie("password", password);
             var j = $.parseJSON(json);
-            setCookie("sessionId",j['sessionId'],0.3);
-            window.location.href = "./remote_controller.html";
+            //console.log(j);
+            if(j['errorMessage'] == "Invalid credential."){
+                $("#errorfield").empty().prepend("Whoops, seems like there is something wrong with your login credentials!");
+            }
+            else{
+                setCookie("sessionId",j['sessionId'],0.3);
+                setCookie("ip", ip);
+                setCookie("password", password);
+                window.location.href = "./remote_controller.html";
+            }
         },
         error: function(errorThrown) {
             $("#errorfield").empty().prepend("Whoops, seems like there is something wrong with your login credentials!");

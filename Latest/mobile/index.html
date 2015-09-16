@@ -10,7 +10,9 @@
 			var element = document.getElementById("mobile");
 			element.parentNode.removeChild(element);
 		}else{
-			window.location.href = "./";
+			var urldata = window.location.href.split("?")[1];
+			if(urldata != null)window.location.href = "../?" + urldata;
+			else window.location.href = "../";
 		}
 	</script>
 	<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />

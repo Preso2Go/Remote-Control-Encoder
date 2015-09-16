@@ -12,6 +12,33 @@
     text-decoration: underline;
     color: #009AFD;
 }
+#pageindicators{
+    border-radius: 15px;
+    height: 15px;
+    width: 104px;
+    margin: 0 auto;
+    position: relative;
+    padding: 10px 0 7px 0;
+}
+.activepageindicator{
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8) inset, 1px 1px 2px rgba(100, 100, 100, 0.3) !important;
+    border: 1px solid rgba(126, 126, 126, 0.31) !important;
+}
+.ball{
+    width: 15px;
+    height: 15px;
+    background-color: #c9c9c9;
+    box-shadow: inset 1px 1px 1px black;
+    border-radius: 10px;
+    float: left;
+    margin-right: 25px;
+    border: 1px solid rgba(131, 131, 131, 0.68);
+    cursor: pointer;
+}
+.ball:last-of-type{
+    margin-right: 0;
+}
+/*Page 1*/
 #controls, #metadata, #settings, #moresettings{
     width: 75%;
     margin: 15px auto 22px;
