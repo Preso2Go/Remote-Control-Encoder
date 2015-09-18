@@ -1,3 +1,6 @@
+body{
+    max-height: 100%;
+}
 #infofield{
     font-size: 85%;
     font-weight: bold;
@@ -10,9 +13,24 @@
     width: 210px;
     left: 50%;
     margin-left: -105px;
-    position: fixed;
+    position: relative;
     padding: 10px 0 7px 0;
-    bottom: 40px;
+    bottom: 35px;
+}
+#valchangedwithencoder{
+    text-align: left;
+    list-style: inside;
+    margin-left: 40px;
+    max-width: 425px;
+}
+.inlinelist{
+    list-style: circle;
+    margin-left: 65px;
+}
+#scroller{
+    max-height: 360px;
+    overflow: auto;
+    background: #fbf9ff;
 }
 .activepageindicator{
     box-shadow: inset 2px 2px 10px black !important;
@@ -601,28 +619,55 @@ input[type=text], textarea{
     body{
         min-width: 100px;
     }
+    #pageindicators{
+        border-radius: 15px;
+        height: 13px;
+        margin-left: -98px;
+        bottom: 29px;
+    }
+    .ball{
+        width: 27px !important;
+        height: 27px !important;
+        margin-right: 35px !important;
+    }
+    .sweet-alert{
+        height: 620px !important;
+        overflow: auto !important;
+        margin-top: -32% !important;
+    }
+    .sweet-alert p{
+        font-size: 25px !important;
+    }
+    .sweet-alert h2{
+        font-size: 50px !important;
+    }
     #metadata, #settings{
-        max-width: 420px;
+        max-width: 409px;
+    }
+    #scroller{
+        max-height: 250px !important;
     }
     #metadata{
         border: none;
-        margin: 40px 0 0 -75px;
+        margin: 40px 0 0 -60px;
         border-right: solid 2px rgba(216, 216, 216, 0.7);
-        height: 300px;
+        height: 290px;
     }
     #moresettings{
-        margin: 0 auto;
+        margin: -35px auto 0;
     }
     #moresettings input{
-        padding: 1px 0 4px 0;
+        padding-bottom: 2px;
+        height: 45px !important;
+        width: 100px !important;
     }
     #settings{
-        margin-top: -300px;
-        padding-left: 400px;
+        margin-top: -285px;
+        padding-left: 407px;
         height: 300px;
     }
     #plus, #min{
-        padding: 13px 25px;
+        padding: 9px 22px;
     }
     input[type=text], textarea{
         margin: 2px 0 8px 0;
@@ -731,7 +776,7 @@ input[type=text], textarea{
         margin: 0;
     }
     #allcamcontrols{
-        margin: 125px 0 0 305px;
+        margin: 125px 0 0 275px;
         top: -500px;
         position: relative;
         max-width: 100%;
@@ -756,7 +801,7 @@ input[type=text], textarea{
         box-shadow: none;
     }
     #p3images{
-        margin: 0;
+        margin: 57px 0 0 -33px;
         max-width: 315px;
     }
     #rightimg img{

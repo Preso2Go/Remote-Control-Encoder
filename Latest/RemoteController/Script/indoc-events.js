@@ -9,14 +9,14 @@ function initializeremotecontrollerevents(){
     window.p3defaultimgslide = null;
 
     if(getCookie("password") == "" || getCookie("password") == null) window.location.href = "./";
-    $("#bp1").on("click", function(){
-        gotopage1();
+    $(".item1").on("click", function(){
+        gotopage1(700);
     });
-    $("#bp2").on("click", function(){
-        gotopage2();
+    $(".item2").on("click", function(){
+        gotopage2(700);
     });
-    $("#bp3").on("click", function(){
-        gotopage3();
+    $(".item3").on("click", function(){
+        gotopage3(700);
     });
 
     /*Metadata*/
@@ -146,7 +146,11 @@ function initializeremotecontrollerevents(){
     $("#delaynr").on("input propertychange paste", function(){
         checkdelaynr($("#delaynr").val());
     }).change(function(){
-        setConfiguration("startdelay", $(this).spinner('value'));
+        setConfiguration("startdelay", function(){
+            if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile Safari|NokiaBrowser/i.test(navigator.userAgent) ) {
+                $(this).spinner('value')
+            }
+        });
     });
 
     /*Info field*/
@@ -163,23 +167,11 @@ function initializeremotecontrollerevents(){
         $(".item1, .item2, .item3").removeAttr("id");
     });
 
-    //TODO: Fix it so when you click the other button the animation does not just finished and goes back, but goes back from that point.
     /* When going to another screen, and that screen has a picture updating automatically,
     * this will initialize the picture updating and remove the updating when the user goes away from that screen.
     * When going from the first to the 3th screen or the other way around, one picure will be loaded on page 2, so that is also updated.
     */
-    $(".item1").on('click', function(){
-        gotopage1();
-    });
-    $(".item2").on('click', function(){
-        gotopage2();
-    });
-    $(".item3").on('click', function(){
-        gotopage3();
-    });
-
     /*Images on page 2*/
-    //TODO: When click on the image, popup screen appears. and the image is shown and updated very fast.
     $("#click1").on('click', function() {
         clearInterval(window.intervalimgclick);
         var password = getCookie("password");
@@ -236,6 +228,19 @@ function initializeremotecontrollerevents(){
 
     /*Events for remotecontroller on mobile*/
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile Safari|NokiaBrowser/i.test(navigator.userAgent) ) {
+        $("#bp1").on('click', function(){
+            window.currentorgotoscreen = 0;
+            gotopage1(900);
+        });
+        $("#bp2").on('click', function(){
+            window.currentorgotoscreen = 1;
+            gotopage2(900);
+        });
+        $("#bp3").on('click', function(){
+            window.currentorgotoscreen = 2;
+            gotopage3(900);
+        });
+
         /* currentgotoscreen:
          * 0: Metadata
          * 1: Video and sound
@@ -247,7 +252,6 @@ function initializeremotecontrollerevents(){
             if($("#info").css("left") != "-1400px" && window.currentorgotoscreen < 2){
                 window.currentorgotoscreen += 1;
                 stopandhidepopoutimgp2();
-                console.log(window.currentorgotoscreen);
                 if(window.currentorgotoscreen == 1){
                     //window.p2defaultimgvideo = initializeimagevent(".VideoSource", 4000);
                     ////window.p2defaultimgslide = initializeimagevent(".SlideSource", 5000);
@@ -270,7 +274,6 @@ function initializeremotecontrollerevents(){
             var swiperightfunction;
             if($("#info").css("left") != "0px" && window.currentorgotoscreen > 0){
                 window.currentorgotoscreen -= 1;
-                console.log(window.currentorgotoscreen);
                 stopandhidepopoutimgp2();
                 if(window.currentorgotoscreen == 1){
                     //window.p2defaultimgvideo = initializeimagevent(".VideoSource", 4000);
@@ -317,6 +320,16 @@ function initializeremotecontrollerevents(){
 
     /*Events for remotecontroller on desktop*/
     }else{
+        $("#bp1").on('click', function(){
+            gotopage1(700);
+        });
+        $("#bp2").on('click', function(){
+            gotopage2(700);
+        });
+        $("#bp3").on('click', function(){
+            gotopage3(700);
+        });
+
         var slider = $("#slider").slider({
             animation: true,
             value: 0,
@@ -514,25 +527,25 @@ function gotopage1(device){
     $(".ball").attr("class", "ball");
     $("#bp1").attr("class", "ball activepageindicator");
     stopandhidepopoutimgp2();
-    $("#page2, #info, #page3").stop(false, true);
+    //$("#page2, #info, #page3").stop(false, true);
     $(".item1").attr("class", "item1 active");
     $(".item2").attr("class", "item2");
     $(".item3").attr("class", "item3");
 
     if(device != "mobile"){
-        $("#page3").animate({
-            left: "1400px"
+        $("#page3").stop().animate({
+            left: (device*2)
         }, 700, function(){
             clearInterval(window.p3defaultimgvideo);
             clearInterval(window.p3defaultimgslide);
         });
-        $("#page2").animate({
-            left: "700px"
+        $("#page2").stop().animate({
+            left: device
         }, 700, function(){
             clearInterval(window.p2defaultimgvideo);
             clearInterval(window.p2defaultimgslide);
         });
-        $("#info").animate({
+        $("#info").stop().animate({
             left: 0
         }, 700);
     }
@@ -544,23 +557,23 @@ function gotopage2(device){
     $(".ball").attr("class", "ball");
     $("#bp2").attr("class", "ball activepageindicator");
     stopandhidepopoutimgp2();
-    $("#page2, #info, #page3").stop(false, true);
+    //$("#page2, #info, #page3").stop(false, true);
     $(".item1").attr("class", "item1");
     $(".item2").attr("class", "item2 active");
     $(".item3").attr("class", "item3");
 
     if(device != "mobile"){
-        $("#page3").animate({
-            left: "700px"
+        $("#page3").stop().animate({
+            left: device
         }, 700, function(){
             clearInterval(window.p3defaultimgvideo);
             clearInterval(window.p3defaultimgslide);
         });
-        $("#page2").animate({
+        $("#page2").stop().animate({
             left: 0
         }, 700);
-        $("#info").animate({
-            left: "-700px"
+        $("#info").stop().animate({
+            left: (device*-1)
         }, 700);
     }
 }
@@ -573,23 +586,23 @@ function gotopage3(device){
     $(".ball").attr("class", "ball");
     $("#bp3").attr("class", "ball activepageindicator");
     stopandhidepopoutimgp2();
-    $("#page2, #info, #page3").stop(false, true);
+    //$("#page2, #info, #page3").stop(false, true);
     $(".item1").attr("class", "item1");
     $(".item2").attr("class", "item2");
     $(".item3").attr("class", "item3 active");
 
     if(device != "mobile"){
-        $("#page3").animate({
+        $("#page3").stop().animate({
             left: 0
         }, 700);
-        $("#page2").animate({
-            left: "-700px"
+        $("#page2").stop().animate({
+            left: (device*-1)
         }, 700, function(){
             clearInterval(window.p2defaultimgvideo);
             clearInterval(window.p2defaultimgslide);
         });
-        $("#info").animate({
-            left: "-1400px"
+        $("#info").stop().animate({
+            left: ((device*2)*-1)
         }, 700);
     }
 }

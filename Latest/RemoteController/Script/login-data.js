@@ -30,7 +30,6 @@ function checkValidLogin(givenip, givenpass){
         ip = encodeURIComponent($('#ipform').val());
         password = encodeURIComponent($('#passwordform').val());
     }
-    console.log(password);
     var Url = "http://" + ip + "?action=sendcommand&actiondetail=initializeremotecontrol&user=presentations2go&password=" + password;
     $.ajax({
 
@@ -41,7 +40,7 @@ function checkValidLogin(givenip, givenpass){
 
         success: function(json){
             var j = $.parseJSON(json);
-            //console.log(j);
+            console.log(j);
             if(j['errorMessage'] == "Invalid credential."){
                 $("#errorfield").empty().prepend("Whoops, seems like there is something wrong with your login credentials!");
             }
