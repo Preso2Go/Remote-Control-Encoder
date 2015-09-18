@@ -259,6 +259,5 @@ function updatelivecheckbox(succesfunction){
 }
 
 function usecamera(camerafunction){
-	console.log(camerafunction);
 	processCall("SendCommand", "actiondetail="+camerafunction, "camera");
 }
