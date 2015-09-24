@@ -1,0 +1,14 @@
+c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\bin\Debug\PauseAndAutoResumeRecording.exe.config
+c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\bin\Debug\PauseAndAutoResumeRecording.exe
+c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\bin\Debug\PauseAndAutoResumeRecording.pdb
+c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\PauseAndAutoResumeRecording.csprojResolveAssemblyReference.cache
+c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\MainWindow.g.cs
+c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\App.g.cs
+c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\PauseAndAutoResumeRecording_MarkupCompile.cache
+c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\PauseAndAutoResumeRecording_MarkupCompile.lref
+c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\MainWindow.baml
+c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\PauseAndAutoResumeRecording.g.resources
+c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\PauseAndAutoResumeRecording.Properties.Resources.resources
+c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\PauseAndAutoResumeRecording.csproj.GenerateResource.Cache
+c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\PauseAndAutoResumeRecording.exe
+c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\PauseAndAutoResumeRecording.pdb

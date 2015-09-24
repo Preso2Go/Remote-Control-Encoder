@@ -1,0 +1,51 @@
+﻿<Window x:Class="PauseAndAutoResumeRecording.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PauseAndAutoResumeRecording"
+        mc:Ignorable="d"
+        Title="Pause recording" Height="407.377" Width="798.5" Visibility="Visible" ResizeMode="CanMinimize" Closing="CloseBtnEvent">
+    <Window.Resources>
+        <Image x:Key="Pause" Source="file:///C:/Users/wg/documents/visual studio 2015/Projects/PauseAndAutoResumeRecording/PauseAndAutoResumeRecording/pausebutton.png"/>
+        <Image x:Key="Resume" Source="file:///C:/Users/wg/documents/visual studio 2015/Projects/PauseAndAutoResumeRecording/PauseAndAutoResumeRecording/resumebutton.png"/>
+    </Window.Resources>
+    <Grid>
+        <!-- Login screen: -->
+        <TextBlock x:Name="txtTlogin" Text="Login:" Margin="22,25,10,271" FontSize="48" FontWeight="Bold" />
+        <TextBlock x:Name="txtTip" Text="IP:" Margin="22,118,38,181" FontSize="36" />
+        <TextBox x:Name="txtip" Margin="225,118,20,206" TextChanged="txtip_TextChanged" FontSize="32"/>
+        <TextBlock x:Name="txtTpassword" Text="Password:" Margin="22,204,245,67" FontSize="36" />
+        <PasswordBox x:Name="txtpassword" Margin="225,209,20,117" FontSize="32" PasswordChanged="txtpassword_TextChanged" />
+        <Button x:Name="btnLogin" Margin="22,292,22,25" RenderTransformOrigin="0.5,0.5" Click="btnLogin_Click" Content="Login" IsEnabled="False" FontSize="32" />
+
+        <!-- Pause screen: -->
+        <TextBlock x:Name="txtpausemin" Margin="44,53,387,249" Text="Minutes pause:" FontSize="48" Visibility="Hidden" />
+        <ComboBox x:Name="cobxNrMinutes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="348" Margin="44,149,0,0" SelectionChanged="cobxNrMinutes_SelectionChanged" Height="60" FontSize="32" BorderThickness="1" IsReadOnly="True" Visibility="Hidden" />
+        <Button x:Name="btnPauseResume" Margin="481,89,89,169" RenderTransformOrigin="0.5,0.5" Click="btnPauseResume_Click" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand" Visibility="Hidden">
+            <Button.Background>
+                <ImageBrush/>
+            </Button.Background>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#00008000"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#00B8860B"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="btnLogout" Margin="394,302,20,25" Content="Logout" FontSize="26.667" Click="btnLogout_Click" Visibility="Hidden"/>
+    </Grid>
+</Window>
