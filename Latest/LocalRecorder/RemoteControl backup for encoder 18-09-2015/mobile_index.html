@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Presenations 2Go Encoder remote control</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <script id="mobile" type="application/javascript">
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile Safari|NokiaBrowser/i.test(navigator.userAgent) ) {
+            var element = document.getElementById("mobile");
+            element.parentNode.removeChild(element);
+        }else{
+            var urldata = window.location.href.split("?")[1];
+            if(urldata != null)window.location.href = "./?" + urldata;
+            else window.location.href = "./";
+        }
+    </script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <script src="jquery-2.1.4.min.js" type="application/javascript"></script>
+    <script src="handlecookies.js" type="application/javascript"></script>
+    <script src="controlfunc.js" type="application/javascript"></script>
+    <script src="indoc-events.js" type="application/javascript"></script>
+    <script src="login-data.js" type="application/javascript"></script>
+
+    <script id="login" type="application/javascript">
+        var urldata = window.location.href.split("?")[1];
+        if(urldata != null){
+                var firstdata = urldata.split("=");
+                if(firstdata[0] != null && firstdata[1] != null){
+                    if(firstdata[0].toLowerCase() == "password"){
+                        checkValidLogin(firstdata[1]);
+                    }
+                }
+        }
+        var loginelement = document.getElementById("login");
+        loginelement.parentNode.removeChild(loginelement);
+    </script>
+
+    <script src="sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="mobile_sweetalert.css">
+
+    <link href="mobile_main.css" rel="stylesheet" type="text/css">
+    <link href="mobile_login.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div class="pagecontainer">
+    <h1>Presentations 2Go Remote Control Login</h1>
+
+    <p id="errorfield"></p>
+
+    <div id="logindata">
+        <label for="passwordform">Password set on<br>your P2Go Encoder.</label><br>
+        <input type="password" id="passwordform" name="password" placeholder="Password"><br>
+        <div id="loginbutton">Connect</div>
+    </div>
+</div>
+</body>
+</html>

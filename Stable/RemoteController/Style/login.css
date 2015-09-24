@@ -1,0 +1,40 @@
+body{
+    width: 100%;
+}
+h1{
+    text-align: center;
+}
+
+/*Page:*/
+#logindata{
+    width: 390px;
+    margin: 40px auto;
+    font-size: 125%;
+}
+input[type=text], input[type=password], textarea{
+    width: 96%;
+    margin: 5px 0 20px 0;
+    padding: 5px;
+    font-size: 80%;
+}
+#loginbutton{
+    margin-top: 10px;
+    padding: 5px 6px;
+
+    background: #009AFD none repeat scroll 0 0;
+    transition: background 0.15s ease 0s, color 0.15s ease 0s;
+    border: 1px solid #1777B7;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 1px 1px rgba(100, 100, 100, 0.3);
+    width: 96%;
+    cursor:pointer;
+    border-radius: 3px;
+    font-weight: 700;
+    color: whitesmoke;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+

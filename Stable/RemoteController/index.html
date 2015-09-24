@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Presenations 2Go Encoder remote control</title>
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+	<script id="mobile" type="application/javascript">
+		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile Safari|NokiaBrowser/i.test(navigator.userAgent) ) {
+			var urldata = window.location.href.split("?")[1];
+			if(urldata != null)window.location.href = "mobile/?" + urldata;
+			else window.location.href = "mobile/";
+		}else{
+			var element = document.getElementById("mobile");
+			element.parentNode.removeChild(element);
+		}
+	</script>
+	<script type="application/javascript" src="Script/jquery-2.1.4.min.js"></script>
+	<script type="application/javascript" src="cookies/handlecookies.js"></script>
+	<script type="application/javascript" src="Script/controlfunc.js"></script>
+	<script type="application/javascript" src="Script/indoc-events.js"></script>
+	<script type="application/javascript" src="Script/login-data.js" ></script>
+
+	<script id="login" type="application/javascript">
+		var urldata = window.location.href.split("?")[1];
+		if(urldata != null){
+			var userpassraw = urldata.split("&");
+			if(userpassraw[0] != null && userpassraw[1] != null){
+				var firstdata = userpassraw[0].split("=");
+				var seconddata = userpassraw[1].split("=");
+				if((firstdata[0] != null && firstdata[1] != null) && (seconddata[0] != null && seconddata[1] != null)){
+					if(firstdata[0].toLowerCase() == "ip"){
+						if(seconddata[0].toLowerCase() == "password"){
+							checkValidLogin(firstdata[1], seconddata[1]);
+						}
+					}else if(firstdata[0].toLowerCase() == "password"){
+						if(seconddata[0].toLowerCase() == "ip"){
+							checkValidLogin(seconddata[1], firstdata[1]);
+						}
+					}
+				}
+			}
+		}
+		var loginelement = document.getElementById("login");
+		loginelement.parentNode.removeChild(loginelement);
+	</script>
+
+	<script src="Script/sweetalert-master/dist/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="Script/sweetalert-master/dist/sweetalert.css">
+
+	<link type="text/css" rel="stylesheet" href="Style/main.css">
+	<link type="text/css" rel="stylesheet" href="Style/login.css">
+</head>
+
+<body>
+	<div class="pagecontainer">
+		<h1>Presentations 2Go Remote Control Login</h1>
+
+		<p id="errorfield"></p>
+
+		<div id="logindata">
+			<label for="ipform">Ip of the network your P2Go<br>Encoder is connected to.</label><br>
+			<input type="text" id="ipform" name="ip" placeholder="Ip address"><br>
+			<label for="passwordform">Password set on<br>your P2Go Encoder.</label><br>
+			<input type="password" id="passwordform" name="password" placeholder="Password"><br>
+			<div id="loginbutton">Connect</div>
+		</div>
+	</div>
+</body>
+</html>
