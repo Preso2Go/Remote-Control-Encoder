@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enable cookies!</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link href="cookies.css" rel="stylesheet">
+    <script src="sweetalert.min.js"></script>
+    <script type="application/javascript" id="includesweetalertstyle">
+        var urlstyles;
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile Safari|NokiaBrowser/i.test(navigator.userAgent) ) {
+            urlstyles = "../mobile/sweetalert-master/sweetalert.css";
+        }else{
+            urlstyles = "../Script/sweetalert-master/dist/sweetalert.css";
+        }
+
+        var css;
+        css         = document.createElement('link');
+        css.rel     = 'stylesheet';
+        css.type    = 'text/css';
+        css.media   = "all";
+        css.href    = urlstyles;
+        document.getElementsByTagName("head")[0].appendChild(css);
+
+        var swalstyleinclude = document.getElementById("includesweetalertstyle");
+        swalstyleinclude.parentNode.removeChild(swalstyleinclude);
+    </script>
+    <script>
+        function tryreturnlogin(){
+            if(!navigator.cookieEnabled){
+                swal({
+                            title: "Cookies",
+                            text: "Your cookies are still disabled! Are your sure you want to go back?",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Yes, Go to login",
+                            cancelButtonText: "Cancel",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                        },
+                        function(isConfirm){
+                            if (isConfirm) {
+                                if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile Safari|NokiaBrowser/i.test(navigator.userAgent) ) window.location.href = "mobile-index.html";
+                                else window.location.href = "./";
+                            }
+                        });
+            }else{
+                if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile Safari|NokiaBrowser/i.test(navigator.userAgent) ) window.location.href = "mobile-index.html";
+                else window.location.href = "./";
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Your cookies are disabled!!</h1>
+    <img src="cookies.jpg" class="floatRight" id="cookieimg">
+    <p>To use this website, you will need to enable your cookies!!</p>
+    <p>For more information on cookies from this website click <a href="CookieInformation.html">here</a>!!</p>
+    <p>For a tutorial on how to enable your cookies click <a href="http://www.computerhope.com/issues/ch000509.htm" target="_blank">here</a>.</p>
+    <p>Note: we do not receive any information gathered by the cookies from our site. All the cookies on this website will only be stored on your computer!</p>
+    <br>
+    <p>To return to the login screen</p>
+    <div id="returnbtn" onclick="tryreturnlogin()">Click here</div>
+</body>
+</html>

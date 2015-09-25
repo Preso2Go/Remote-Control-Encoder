@@ -1,0 +1,63 @@
+body{
+    width: 100%;
+}
+h1{
+    text-align: center;
+}
+/*Page:*/
+#logindata{
+    width: 700px;
+    margin: 40px auto;
+    font-size: 143%;
+}
+input[type=text], input[type=password], textarea{
+    width: 681px;
+    margin: 10px 0 45px 0;
+    padding: 9px;
+    font-size: 100%
+}
+#loginbutton {
+    margin-top: 20px;
+    padding: 15px 10px;
+    background: #009AFD none repeat scroll 0 0;
+    transition: background 0.15s ease 0s, color 0.15s ease 0s;
+    border: 1px solid #1777B7;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 1px 1px rgba(100, 100, 100, 0.3);
+    width: 680px;
+    border-radius: 4px;
+    font-weight: 700;
+    color: whitesmoke;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+@media screen and (min-width: 1024px) {
+    html{
+        font-size: 170%;
+    }
+    body{
+        min-width: 100px;
+    }
+    .pagecontainer{
+        margin: 15px auto;
+    }
+    input[type=text], input[type=password], #loginbutton{
+        width: 525px;
+    }
+    input[type=text], input[type=password]{
+        padding: 5px;
+        font-size: 78%;
+        margin: 6px 0 11px;
+    }
+    #logindata{
+        width: 550px;
+    }
+    #loginbutton{
+        padding: 5px 6px;
+    }
+}

@@ -11,18 +11,9 @@
         <Image x:Key="Resume" Source="file:///C:/Users/wg/documents/visual studio 2015/Projects/PauseAndAutoResumeRecording/PauseAndAutoResumeRecording/resumebutton.png"/>
     </Window.Resources>
     <Grid>
-        <!-- Login screen: -->
-        <TextBlock x:Name="txtTlogin" Text="Login:" Margin="22,25,10,271" FontSize="48" FontWeight="Bold" />
-        <TextBlock x:Name="txtTip" Text="IP:" Margin="22,118,38,181" FontSize="36" />
-        <TextBox x:Name="txtip" Margin="225,118,20,206" TextChanged="txtip_TextChanged" FontSize="32"/>
-        <TextBlock x:Name="txtTpassword" Text="Password:" Margin="22,204,245,67" FontSize="36" />
-        <PasswordBox x:Name="txtpassword" Margin="225,209,20,117" FontSize="32" PasswordChanged="txtpassword_TextChanged" />
-        <Button x:Name="btnLogin" Margin="22,292,22,25" RenderTransformOrigin="0.5,0.5" Click="btnLogin_Click" Content="Login" IsEnabled="False" FontSize="32" />
-
-        <!-- Pause screen: -->
-        <TextBlock x:Name="txtpausemin" Margin="44,53,387,249" Text="Minutes pause:" FontSize="48" Visibility="Hidden" />
-        <ComboBox x:Name="cobxNrMinutes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="348" Margin="44,149,0,0" SelectionChanged="cobxNrMinutes_SelectionChanged" Height="60" FontSize="32" BorderThickness="1" IsReadOnly="True" Visibility="Hidden" />
-        <Button x:Name="btnPauseResume" Margin="481,89,89,169" RenderTransformOrigin="0.5,0.5" Click="btnPauseResume_Click" BorderBrush="{x:Null}" Foreground="{x:Null}" Cursor="Hand" Visibility="Hidden">
+        <TextBlock x:Name="txtpausemin" Margin="44,53,387,249" Text="Minutes pause:" FontSize="48" />
+        <ComboBox x:Name="cobxNrMinutes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="348" Margin="44,149,0,0" SelectionChanged="cobxNrMinutes_SelectionChanged" Height="60" FontSize="32" BorderThickness="1" IsReadOnly="True" IsEnabled="{Binding Path=ComboboxEnabled}" />
+        <Button x:Name="btnPauseResume" Margin="481,89,89,169" RenderTransformOrigin="0.5,0.5" Click="btnPauseResume_Click" BorderBrush="{x:Null}" Foreground="Black" Cursor="Hand" Content="{Binding Path=ButtonImage}">
             <Button.Background>
                 <ImageBrush/>
             </Button.Background>
@@ -46,6 +37,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button x:Name="btnLogout" Margin="394,302,20,25" Content="Logout" FontSize="26.667" Click="btnLogout_Click" Visibility="Hidden"/>
+        <TextBlock x:Name="MyTextBlock" Margin="74,261,416,67" FontSize="26.667" Text="{Binding Path=TimerValue}" />
+        <Button x:Name="btnLogout" Margin="394,302,20,25" Content="Logout" FontSize="26.667" Click="btnLogout_Click"/>
     </Grid>
 </Window>

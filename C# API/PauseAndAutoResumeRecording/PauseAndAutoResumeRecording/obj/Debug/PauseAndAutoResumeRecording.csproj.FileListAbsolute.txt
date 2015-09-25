@@ -12,3 +12,5 @@ c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\Pa
 c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\PauseAndAutoResumeRecording.csproj.GenerateResource.Cache
 c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\PauseAndAutoResumeRecording.exe
 c:\users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\PauseAndAutoResumeRecording.pdb
+C:\Users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\login.g.cs
+C:\Users\wg\documents\visual studio 2015\Projects\PauseAndAutoResumeRecording\PauseAndAutoResumeRecording\obj\Debug\login.baml

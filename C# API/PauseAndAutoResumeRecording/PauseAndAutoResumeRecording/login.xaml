@@ -1,0 +1,19 @@
+﻿<Window x:Class="PauseAndAutoResumeRecording.login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PauseAndAutoResumeRecording"
+        mc:Ignorable="d"
+        Title="login" Height="410" Width="682">
+    <Grid>
+        <!-- Login screen: -->
+        <TextBlock x:Name="txtTlogin" Text="Login:" Margin="22,25,12,262" FontSize="48" FontWeight="Bold" />
+        <TextBlock x:Name="txtTip" Text="IP:" Margin="21,117,23,186" FontSize="36" />
+        <TextBox x:Name="txtip" Margin="206,117,16,207" FontSize="32" TextChanged="txtip_TextChanged"/>
+        <TextBlock x:Name="txtTpassword" Text="Password:" Margin="21,207,93,98" FontSize="36" />
+        <PasswordBox x:Name="txtpassword" Margin="206,210,16,109" FontSize="32" PasswordChanged="txtpassword_TextChanged" />
+        <Button x:Name="btnLogin" Margin="22,302,16,12" RenderTransformOrigin="0.5,0.5" Content="Login" IsEnabled="False" FontSize="32" Click="btnLogin_Click" />
+
+    </Grid>
+</Window>

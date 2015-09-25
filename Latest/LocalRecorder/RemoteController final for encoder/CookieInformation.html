@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie information</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link href="cookies.min.css" rel="stylesheet">
+    <script src="sweetalert.min.js"></script>
+    <script type="application/javascript" id="includesweetalertstyle">
+        var urlstyles;
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile Safari|NokiaBrowser/i.test(navigator.userAgent) ) {
+            urlstyles = "/mobile/sweetalert-master/mobile-sweetalert.css";
+        }else{
+            urlstyles = "/Script/sweetalert-master/dist/sweetalert.css";
+        }
+
+        var css;
+        css         = document.createElement('link');
+        css.rel     = 'stylesheet';
+        css.type    = 'text/css';
+        css.media   = "all";
+        css.href    = urlstyles;
+        document.getElementsByTagName("head")[0].appendChild(css);
+
+        var swalstyleinclude = document.getElementById("includesweetalertstyle");
+        swalstyleinclude.parentNode.removeChild(swalstyleinclude);
+    </script>
+    <script>
+        function tryreturnlogin(){
+            if(!navigator.cookieEnabled){
+                swal({
+                    title: "Cookies",
+                    text: "Your cookies are still disabled! Are your sure you want to go back?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, Go to login",
+                    cancelButtonText: "Cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+                function(isConfirm){
+                    if (isConfirm) {
+                        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile Safari|NokiaBrowser/i.test(navigator.userAgent) ) window.location.href = "mobile-index.html";
+                        else window.location.href = "./";
+                    }
+                });
+            }else{
+                if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile Safari|NokiaBrowser/i.test(navigator.userAgent) ) window.location.href = "mobile-index.html";
+                else window.location.href = "./";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Cookie information.</h1>
+    <img src="cookies.jpg" class="floatRight" id="cookieimg">
+    <p>We use cookies on our website to save data while swiching web pages. Without cookies you will not be alble to use this site at all sinds all information send to the encode has to go with ip, username, password and some more things.
+    We save this information in our cookies.</p>
+    <p>Note: we <u>DO NOT</u> use cookies for any other purpose than to save data to send to the encoder and control the software.</p>
+    <br>
+    <p>Your cookies will only be saved in your browser. We do not receive any information from the cookies on this website!</p>
+    <p>You can turn cookies off. <a href="http://www.computerhope.com/issues/ch000509.htm" target="_blank">This link</a> will explain how to turn you cookies off. Doing so will result in now being able to use this site anymore since we require cookies.</p>
+    <p>To contact us for more information about the use of this website. Visit <a href="http://www.learningvalley.nl/en/contact/" target="_blank">this link</a>.</p>
+    <br>
+    <p>To return to the login screen</p>
+    <div id="returnbtn" onclick="tryreturnlogin()">Click here</div>
+</body>
+</html>
