@@ -5,39 +5,82 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PauseAndAutoResumeRecording"
         mc:Ignorable="d"
-        Title="Pause recording" Height="407.377" Width="798.5" Visibility="Visible" ResizeMode="CanMinimize" Closing="CloseBtnEvent">
+        Title="Pause recording" Height="283.377" Width="798.5" Visibility="Visible" ResizeMode="CanMinimize" Closing="CloseBtnEvent">
     <Window.Resources>
         <Image x:Key="Pause" Source="file:///C:/Users/wg/documents/visual studio 2015/Projects/PauseAndAutoResumeRecording/PauseAndAutoResumeRecording/pausebutton.png"/>
         <Image x:Key="Resume" Source="file:///C:/Users/wg/documents/visual studio 2015/Projects/PauseAndAutoResumeRecording/PauseAndAutoResumeRecording/resumebutton.png"/>
+        <Image x:Key="BlockedPause" Source="file:///C:/Users/wg/documents/visual studio 2015/Projects/PauseAndAutoResumeRecording/PauseAndAutoResumeRecording/blockedpausebutton.png"/>
+
+        <Style x:Key="BtnResumeStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#009afd" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Cursor" Value="Hand" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="7" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Path x:Name="PathIconLeft" Width="21.5" Height="Auto" Stretch="Fill" Fill="White" HorizontalAlignment="Left" Margin="40,19.637,0,17.637" Data="F1M30,0L30,38.6043 0.6665,38.7918 0.0833,38.8333 0.0833,0.1667z" RenderTransformOrigin="0.5,0.5"/>
+                                <Path x:Name="PathIcon" Width="55.5" Height="Auto" Stretch="Fill" Fill="White" HorizontalAlignment="Left" Margin="70,19.637,0,17.637" Data="F1 M 30,22.1667L 50.6665,37.6043L 50.6665,38.7918L 30.0833,53.8333L 30.0833,22.1667 Z " RenderTransformOrigin="0.5,0.5"/>
+                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" SnapsToDevicePixels="True" />
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="BtnPauseStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#009afd" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Cursor" Value="Hand" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="7" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Path x:Name="PathIconLeft" Width="21.5" Height="Auto" Stretch="Fill" Fill="White" HorizontalAlignment="Left" Margin="47.5,19.637,0,17.637" Data="F1M30,0L30,38.6043 0.6665,38.7918 0.0833,38.8333 0.0833,0.1667z" RenderTransformOrigin="0.5,0.5"/>
+                                <Path x:Name="PathIconRight" Width="21.5" Height="Auto" Stretch="Fill" Fill="White" HorizontalAlignment="Left" Margin="82.5,19.637,0,17.637" Data="F1M30,0L30,38.6043 0.6665,38.7918 0.0833,38.8333 0.0833,0.1667z" RenderTransformOrigin="0.5,0.5"/>
+                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" SnapsToDevicePixels="True" />
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="BtnBlockedPauseStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#6690a3" />
+            <Setter Property="Foreground" Value="#b7c4ca" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Cursor" Value="No" />
+ 
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="7" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Path x:Name="PathIconLeft" Width="21.5" Height="Auto" Stretch="Fill" Fill="#FFB7C4CA" HorizontalAlignment="Left" Margin="47.5,19.637,0,17.637" Data="F1M30,0L30,38.6043 0.6665,38.7918 0.0833,38.8333 0.0833,0.1667z" RenderTransformOrigin="0.5,0.5"/>
+                                <Path x:Name="PathIconRight" Width="21.5" Height="Auto" Stretch="Fill" Fill="#FFB7C4CA" HorizontalAlignment="Left" Margin="82.5,19.637,0,17.637" Data="F1M30,0L30,38.6043 0.6665,38.7918 0.0833,38.8333 0.0833,0.1667z" RenderTransformOrigin="0.5,0.5"/>
+                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" SnapsToDevicePixels="True" />
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
-        <TextBlock x:Name="txtpausemin" Margin="44,53,387,249" Text="Minutes pause:" FontSize="48" />
-        <ComboBox x:Name="cobxNrMinutes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="348" Margin="44,149,0,0" SelectionChanged="cobxNrMinutes_SelectionChanged" Height="60" FontSize="32" BorderThickness="1" IsReadOnly="True" IsEnabled="{Binding Path=ComboboxEnabled}" />
-        <Button x:Name="btnPauseResume" Margin="481,89,89,169" RenderTransformOrigin="0.5,0.5" Click="btnPauseResume_Click" BorderBrush="{x:Null}" Foreground="Black" Cursor="Hand" Content="{Binding Path=ButtonImage}">
-            <Button.Background>
-                <ImageBrush/>
-            </Button.Background>
-            <Button.Style>
-                <Style TargetType="{x:Type Button}">
-                    <Setter Property="Background" Value="#00008000"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="{TemplateBinding Background}">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#00B8860B"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-        <TextBlock x:Name="MyTextBlock" Margin="74,261,416,67" FontSize="26.667" Text="{Binding Path=TimerValue}" />
-        <Button x:Name="btnLogout" Margin="394,302,20,25" Content="Logout" FontSize="26.667" Click="btnLogout_Click"/>
+        <TextBlock x:Name="txtpausemin" Margin="68,30,363,132" Text="Minutes pause:" FontSize="48" />
+        <ComboBox x:Name="cobxNrMinutes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="348" Margin="55,106,0,0" SelectionChanged="cobxNrMinutes_SelectionChanged" Height="60" FontSize="32" BorderThickness="1" IsReadOnly="True" IsEnabled="True" />
+
+        <Button x:Name="btnPauseResume" Style="{Binding Path=ButtonImage}" Margin="530,73,99,72" Click="btnPauseResume_Click"/>
+        <TextBlock x:Name="MyTextBlock" Margin="97,187,61,10" FontSize="26.667" Text="" />
+
     </Grid>
 </Window>

@@ -13,7 +13,7 @@
         <TextBox x:Name="txtip" Margin="206,117,16,207" FontSize="32" TextChanged="txtip_TextChanged"/>
         <TextBlock x:Name="txtTpassword" Text="Password:" Margin="21,207,93,98" FontSize="36" />
         <PasswordBox x:Name="txtpassword" Margin="206,210,16,109" FontSize="32" PasswordChanged="txtpassword_TextChanged" />
-        <Button x:Name="btnLogin" Margin="22,302,16,12" RenderTransformOrigin="0.5,0.5" Content="Login" IsEnabled="False" FontSize="32" Click="btnLogin_Click" />
+        <Button x:Name="btnLogin" Margin="22,302,16,12" RenderTransformOrigin="0.5,0.5" Content="Save login data" IsEnabled="False" FontSize="32" Click="btnLogin_Click" />
 
     </Grid>
 </Window>

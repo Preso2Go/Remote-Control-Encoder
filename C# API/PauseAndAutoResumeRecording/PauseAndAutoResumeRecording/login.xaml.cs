@@ -6,6 +6,8 @@ using System.Net;
 using System.IO;
 using System.Web.Script.Serialization;
 using System.Security.Cryptography;
+using System.Configuration;
+using System.Reflection;
 
 namespace PauseAndAutoResumeRecording
 {
@@ -22,16 +24,41 @@ namespace PauseAndAutoResumeRecording
         {
             InitializeComponent();
 
-            //Decrypt the login data and tries to login with that data.
-            string defaultip = Decrypt(Properties.Settings.Default.Ip);
-            string defaultpassword = Decrypt(Properties.Settings.Default.Password);
-            if (defaultip != null && defaultpassword != null)
+            
+
+            try
             {
-                ip = defaultip;
-                txtip.Text = ip;
-                password = defaultpassword;
-                txtpassword.Password = password;
-                Login("Your last login credentials are no longer valid! Please login again.");
+                //Decrypt the login data and tries to login with that data.
+                string loc = Assembly.GetEntryAssembly().Location;
+                Configuration AppConfiguration = ConfigurationManager.OpenMappedExeConfiguration(
+                    new ExeConfigurationFileMap { ExeConfigFilename = loc + ".config" }, ConfigurationUserLevel.None);
+                var settings = AppConfiguration.AppSettings.Settings;
+                string defaultip = Decrypt(settings["Ip"].Value);
+                string defaultpassword = Decrypt(settings["Password"].Value);
+                //string defaultip = Decrypt(Properties.Settings.Default.Ip);
+                //string defaultpassword = Decrypt(Properties.Settings.Default.Password);
+                if (defaultip != null && defaultpassword != null)
+                {
+                    ip = defaultip;
+                    txtip.Text = ip;
+                    password = defaultpassword;
+                    txtpassword.Password = password;
+                    Login("Your last login credentials are no longer valid! Please login again.");
+                }
+            }
+            catch
+            {
+                System.Text.StringBuilder sb = new StringBuilder();
+                sb.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
+                sb.AppendLine("<configuration>");
+                sb.AppendLine("<appSettings>");
+                sb.AppendLine("<add key=\"Ip\" value=\"\" />");
+                sb.AppendLine("<add key=\"Password\" value=\"\" />");
+                sb.AppendLine("</appSettings>");
+                sb.AppendLine("</configuration>");
+
+                string loc = Assembly.GetEntryAssembly().Location;
+                System.IO.File.WriteAllText(String.Concat(loc, ".config"), sb.ToString());
             }
         }
         //Intialises the screen and fills ip and password field. This is called from the logout button.
@@ -87,13 +114,17 @@ namespace PauseAndAutoResumeRecording
             }
             else if (returnvalue != null)
             {
-                //Encrypts the login data and saves it in the configuration file.
+                string loc = Assembly.GetEntryAssembly().Location;
+                Configuration AppConfiguration = ConfigurationManager.OpenMappedExeConfiguration(
+                    new ExeConfigurationFileMap { ExeConfigFilename = loc + ".config" }, ConfigurationUserLevel.None);
+
+                var settings = AppConfiguration.AppSettings.Settings;
                 string ipencrypted = Encrypt(ip);
-                if (ipencrypted != null) Properties.Settings.Default.Ip = ipencrypted;
+                if (ipencrypted != null) settings["Ip"].Value = ipencrypted;
                 string passwordencrypted = Encrypt(password);
-                if (passwordencrypted != null) Properties.Settings.Default.Password = passwordencrypted;
-                Properties.Settings.Default.Save();
-                
+                if (passwordencrypted != null) settings["Password"].Value = passwordencrypted;
+                AppConfiguration.Save(ConfigurationSaveMode.Modified);
+
                 MainWindow controller = new MainWindow();
                 controller.Show();
                 this.Close();

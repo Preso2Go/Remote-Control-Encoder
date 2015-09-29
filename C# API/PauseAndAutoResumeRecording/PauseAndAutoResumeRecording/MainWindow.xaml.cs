@@ -7,6 +7,8 @@ using System.IO;
 using System.Web.Script.Serialization;
 using System.Security.Cryptography;
 using System.ComponentModel;
+using System.Configuration;
+using System.Reflection;
 
 namespace PauseAndAutoResumeRecording
 {
@@ -32,21 +34,24 @@ namespace PauseAndAutoResumeRecording
     /// and stop the live session before he/she can use anything of the application. 
     /// When using this application, you are most likely not live, or thats not meant to be.
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
         //Variables used in this application that are able to be user by any function.
         private static int minutespause = 15;
         private static System.Timers.Timer aTimer;
+        private static System.Timers.Timer UpdateTimer;
         public string ip;
         public string password;
         private bool timeron = false;
         private int timesec = 0;
         string ssec, smin;
+        int currentrecstatus = 0;
 
         //Initialisation of the application window that will only be called once at the beginning of the application.
         public MainWindow()
         {
             InitializeComponent();
+            
             this.DataContext = this;
             resetimer();
 
@@ -63,43 +68,81 @@ namespace PauseAndAutoResumeRecording
             //The standard selected item in the dropdown is number 14 which is "15 minutes". This is because it starts at 0!
             cobxNrMinutes.SelectedIndex = 14;
 
-            string defaultip = Decrypt(Properties.Settings.Default.Ip);
-            string defaultpassword = Decrypt(Properties.Settings.Default.Password);
+            string loc = Assembly.GetEntryAssembly().Location;
+            Configuration AppConfiguration = ConfigurationManager.OpenMappedExeConfiguration(
+                new ExeConfigurationFileMap { ExeConfigFilename = loc + ".config" }, ConfigurationUserLevel.None);
+
+            var settings = AppConfiguration.AppSettings.Settings;
+            string defaultip = Decrypt(settings["Ip"].Value);
+            string defaultpassword = Decrypt(settings["Password"].Value);
+            //string defaultip = Decrypt(Properties.Settings.Default.Ip);
+            //string defaultpassword = Decrypt(Properties.Settings.Default.Password);
             if (defaultip != null && defaultpassword != null)
             {
                 ip = defaultip;
                 password = defaultpassword;
+                this.Title = "Pause recording " + ip;
             }
+            
+            UpdateRecStatus();
 
-           string recstatus = getRecordingStatusEncoder();
+            //Initialises the update timer. This timer checks every 2.5 seconds if something changed.
+            //If something changed, it will change the appropriate items in the application.
+            UpdateTimer = new System.Timers.Timer();
+            UpdateTimer.Interval = 2500; //Interval in miliseconds
+            UpdateTimer.Elapsed += OnUpdateRecStatus;
+            UpdateTimer.AutoReset = true;
+            UpdateTimer.Start();
+        }
 
-            if (recstatus == "Recording  (Paused) ")
-            {
-                ButtonImage = FindResource("Resume");
-            }
-            else if (recstatus == "Recording ")
-            {
-                ButtonImage = FindResource("Pause");
-            }
-            else if (recstatus == "Idle") ButtonImage = FindResource("Pause");
-            else if (recstatus == "Live") ButtonImage = FindResource("Pause");
+        //Updates the recording status, and changed the application accordingly.
+        private void UpdateRecStatus(bool erroronlive = true)
+        {
+            string recstatus = getRecordingStatusEncoder(false);
+            Application.Current.Dispatcher.Invoke(new Action(() => {
+                if (recstatus == "Recording  (Paused) " && currentrecstatus != 1)
+                {
+                    currentrecstatus = 1;
+                    btnPauseResume.IsEnabled = true;
+                    cobxNrMinutes.IsEnabled = false;
+                    btnPauseResume.Style = (Style)FindResource("BtnResumeStyle");
+                }
+                else if (recstatus == "Recording " && currentrecstatus != 2)
+                {
+                    currentrecstatus = 2;
+                    resetimer();
+                    btnPauseResume.IsEnabled = true;
+                    btnPauseResume.Style = (Style)FindResource("BtnPauseStyle");
+                }
+                else if (recstatus == "Idle" && currentrecstatus != 3)
+                {
+                    currentrecstatus = 3;
+                    resetimer();
+                    btnPauseResume.IsEnabled = true;
+                    btnPauseResume.Style = (Style)FindResource("BtnBlockedPauseStyle");
+                }
+                else if (recstatus == "Live" && currentrecstatus != 4)
+                {
+                    currentrecstatus = 4;
+                    resetimer();
+                    cobxNrMinutes.IsEnabled = false;
+                    btnPauseResume.IsEnabled = false;
+                    btnPauseResume.Style = (Style)FindResource("BtnBlockedPauseStyle");
+                    if (erroronlive)
+                    {
+                        MessageBox.Show("The recorder is live. You won't be able to pause the recording while you're live! Please restart this application when you stoped the live session!",
+                                        "You're live!",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
+                    }
+                }
+            }));
+        }
 
-
-            if (recstatus == "Idle")
-            {
-                MessageBox.Show("The recorder is not recording. You will have to start a recoding before you can pause it!",
-                                "Not recording!",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Warning);
-            }
-            else if (recstatus == "Live")
-            {
-                btnPauseResume.IsEnabled = false;
-                MessageBox.Show("The recorder is live. You won't be able to pause the recording while you're live! Please restart this application when you stoped the live session!",
-                                    "You're live!",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Error);
-            }
+        //Every 2.5 seconds, it checks what state the recording is in.
+        private void OnUpdateRecStatus(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            UpdateRecStatus(false);
         }
 
         //When the user selects a different number of minutes in this software.
@@ -134,9 +177,9 @@ namespace PauseAndAutoResumeRecording
                 if (minutespause < 10) mins = "0" + minutespause.ToString();
                 else mins = minutespause.ToString();
 
-                TimerValue = mins + ":00 until resuming!";
+                MyTextBlock.Text = mins + ":00 until resuming!";
 
-                ComboboxEnabled = false;
+                cobxNrMinutes.IsEnabled = false;
                 timeron = true;
                 aTimer = new System.Timers.Timer();
                 aTimer.Interval = 1000; //minutespause in miliseconds
@@ -163,7 +206,7 @@ namespace PauseAndAutoResumeRecording
         // When the specified time is over, this function will be called.
         private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
-            if (timesec == (minutespause * 60))
+            if (timesec >= (minutespause * 60))
             {
                 if (getRecordingStatusEncoder() == "Recording  (Paused) ")
                 {
@@ -184,65 +227,26 @@ namespace PauseAndAutoResumeRecording
                 if (seconds < 10) ssec = "0" + seconds.ToString();
                 else ssec = seconds.ToString();
 
-                TimerValue = (smin + ":" + ssec + " until resuming!");
+                Application.Current.Dispatcher.Invoke(new Action(() => {
+                   MyTextBlock.Text = (smin + ":" + ssec + " until resuming!"); 
+                }));
             }
         }
-
-        //Change UI values inside another thread. 
-        private string timervalue;
-        public string TimerValue
-        {
-            get { return timervalue; }
-            set
-            {
-                timervalue = value;
-                RaisePropertyChanged("TimerValue");
-            }
-        }
-
-        private object buttonimage;
-        public object ButtonImage
-        {
-            get { return buttonimage; }
-            set
-            {
-                buttonimage = value;
-                RaisePropertyChanged("ButtonImage");
-            }
-        }
-
-        private bool comboboxenabled;
-        public bool ComboboxEnabled
-        {
-            get { return comboboxenabled; }
-            set
-            {
-                comboboxenabled = value;
-                RaisePropertyChanged("ComboboxEnabled");
-            }
-        }
-
-        private void RaisePropertyChanged(string propName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
-            }
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
 
         //Reset variables that are used with the timer
         public void resetimer()
         {
             if(aTimer != null) aTimer.Dispose();
-            TimerValue = "";
-            ComboboxEnabled = true;
-            timesec = 0;
-            timeron = false;
+            Application.Current.Dispatcher.Invoke(new Action(() => {
+                MyTextBlock.Text = "";
+                cobxNrMinutes.IsEnabled = true;
+                timesec = 0;
+                timeron = false;
+            }));
         }
 
         //Sends a request to the encoder and returns the state of the recording. 
-        private string getRecordingStatusEncoder()
+        private string getRecordingStatusEncoder(bool errormsg = true)
         {
             try {
                 WebRequest request = WebRequest.Create("http://" + ip + "?action=info&actionDetail=status&user=presentations2go&password=" + password + "&sessionId=" + getSessionId());
@@ -262,18 +266,20 @@ namespace PauseAndAutoResumeRecording
             }
             catch
             {
-                MessageBox.Show("ERROR: An error occured while trying to connect to the encoder!\nPlease try loggin back in again!\nIf that does not help,please check your internet connection and the internet connection of the encoder!", 
-                                    "Error", 
-                                    MessageBoxButton.OK, 
+                if (errormsg)
+                {
+                    MessageBox.Show("ERROR: An error occured while trying to connect to the encoder!\nPlease check your internet connection and the internet connection of the encoder, if that does not help, please contact an administrator.",
+                                    "Error",
+                                    MessageBoxButton.OK,
                                     MessageBoxImage.Warning);
-                gotoLoginScreen();
+                }
                 return null;
             }
 
         }
 
-        //Opens the login screen and closes this screen.
-        private void gotoLoginScreen(bool logout = false)
+        //Opens the login screen and closes this screen. Not used anymore!
+        /*private void gotoLoginScreen(bool logout = false)
         {
             login loginscreen;
             if (logout)
@@ -282,7 +288,7 @@ namespace PauseAndAutoResumeRecording
             }else loginscreen = new login(true);
             loginscreen.Show();
             this.Close();
-        }
+        }*/
 
         //Presses the Record / Pause / Resume button in the encoder. 
         private void pressPauseResumeBtn()
@@ -303,20 +309,26 @@ namespace PauseAndAutoResumeRecording
                 dataStream.Close();
                 response.Close();
 
-                if (ButtonImage == FindResource("Resume")) ButtonImage = FindResource("Pause");
-                else ButtonImage = FindResource("Resume");
+                if (btnPauseResume.Style == (Style)FindResource("BtnResumeStyle")){
+                    btnPauseResume.Style = (Style)FindResource("BtnPauseStyle");
+                    currentrecstatus = 2;
+                }
+                else
+                {
+                    btnPauseResume.Style = (Style)FindResource("BtnResumeStyle");
+                    currentrecstatus = 1;
+                }
             }
             catch
             {
-                MessageBox.Show("1 ERROR: An error occured while trying to connect to the encoder!\nPlease try loggin back in again!\nIf that does not help,please check your internet connection and the internet connection of the encoder!",
+                MessageBox.Show("ERROR: An error occured while trying to connect to the encoder!\nPlease check your internet connection and the internet connection of the encoder, if that does not help, please contact an administrator.",
                                     "Error",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Warning);
-                Console.WriteLine(ip + " : " + password);
-                gotoLoginScreen();
             }
             
         }
+
         //Returns a new valid sessionId. This has to be done when trying to doing something in the encoder with the API.
         private string getSessionId(bool login = false)
         {
@@ -346,19 +358,17 @@ namespace PauseAndAutoResumeRecording
             }
             catch
             {
-                MessageBox.Show("ERROR: An error occured while trying to connect to the encoder!\nPlease try loggin back in again!\nIf that does not help, please check your internet connection and the internet connection of the encoder!", 
-                                    "Error", 
-                                    MessageBoxButton.OK, 
+                MessageBox.Show("ERROR: An error occured while trying to connect to the encoder!\nPlease check your internet connection and the internet connection of the encoder, if that does not help, please contact an administrator.",
+                                    "Error",
+                                    MessageBoxButton.OK,
                                     MessageBoxImage.Warning);
-                Console.WriteLine(ip + " : " + password);
-                gotoLoginScreen();
                 return null;
             }
 
         }
 
-        //When the logout button is pressed, the user will see the login information.
-        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        //When the logout button is pressed, the user will get redirected to the login screen. Logout button is currently not used anymore.
+        /*private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
             if (timeron)
             {
@@ -377,18 +387,18 @@ namespace PauseAndAutoResumeRecording
             {
                 gotoLoginScreen(true);
             }
-        }
+        }*/
 
         //When the application is tried to be closed and the user had pressed the pause button and so the timer is on, it asks if you are sure if you want to close the application. 
         private void CloseBtnEvent(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (timeron)
             {
-                MessageBoxResult result = MessageBox.Show("Are you sure you want to close this application while you pause the recording? This will mean the timer is deleted and the recording won't start automatically anymore!!",
-                                                            "Close while paused?",
-                                                            MessageBoxButton.YesNo,
-                                                            MessageBoxImage.Warning);
-                e.Cancel = (result == MessageBoxResult.No);
+                MessageBoxResult result = MessageBox.Show("You are currently paused, you will have to wait until the recording is continued before you can close this application!",
+                                                            "Can't close while paused!",
+                                                            MessageBoxButton.OK,
+                                                            MessageBoxImage.Error);
+                e.Cancel = true;
             }
         }
 
