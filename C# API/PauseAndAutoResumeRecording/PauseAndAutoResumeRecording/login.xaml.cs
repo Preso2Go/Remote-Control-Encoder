@@ -138,7 +138,7 @@ namespace PauseAndAutoResumeRecording
             {
                 WebRequest request = WebRequest.Create("http://" + ip + "?action=sendcommand&actiondetail=initializeremotecontrol&user=presentations2go&password=" + password);
                 request.Credentials = new NetworkCredential(" ", " ");
-
+                request.Timeout = 5000;
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 Stream dataStream = response.GetResponseStream();
                 StreamReader reader = new StreamReader(dataStream);
@@ -159,7 +159,7 @@ namespace PauseAndAutoResumeRecording
             }
             catch
             {
-                MessageBox.Show("2 ERROR: An error occured while trying to connect to the encoder!\nPlease try loggin back in again!\nIf that does not help, please check your internet connection and the internet connection of the encoder!",
+                MessageBox.Show("ERROR: An error occured while trying to connect to the encoder!\nPlease check your internet connection and the internet connection of the encoder!\n If that does not help, please contact a administrator! Extra info: Could not connect during login phase.",
                                     "Error",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Warning);

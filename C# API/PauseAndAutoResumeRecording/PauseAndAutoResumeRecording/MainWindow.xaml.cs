@@ -249,7 +249,7 @@ namespace PauseAndAutoResumeRecording
         private string getRecordingStatusEncoder(bool errormsg = true)
         {
             try {
-                WebRequest request = WebRequest.Create("http://" + ip + "?action=info&actionDetail=status&user=presentations2go&password=" + password + "&sessionId=" + getSessionId());
+                WebRequest request = WebRequest.Create("http://" + ip + "?action=info&actionDetail=status&user=presentations2go&password=" + password + "&sessionId=" + getSessionId(errormsg));
                 request.Credentials = new NetworkCredential(" ", " ");
 
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -332,7 +332,7 @@ namespace PauseAndAutoResumeRecording
         }
 
         //Returns a new valid sessionId. This has to be done when trying to doing something in the encoder with the API.
-        private string getSessionId(bool login = false)
+        private string getSessionId(bool errormsg = true)
         {
             try {
                 WebRequest request = WebRequest.Create("http://" + ip + "?action=sendcommand&actiondetail=initializeremotecontrol&user=presentations2go&password=" + password);
@@ -347,23 +347,17 @@ namespace PauseAndAutoResumeRecording
                 reader.Close();
                 dataStream.Close();
                 response.Close();
-                if (login)
-                {
-                    try{
-                        return json["errorMessage"];
-                    }
-                    catch (System.Collections.Generic.KeyNotFoundException){
-                        return json["sessionId"];
-                    }
-                }
-                else return json["sessionId"];
+                return json["sessionId"];
             }
             catch
             {
-                MessageBox.Show("ERROR: An error occured while trying to connect to the encoder!\nPlease check your internet connection and the internet connection of the encoder, if that does not help, please contact an administrator. Extra info: While trying to get a new sessionId",
+                if (errormsg)
+                {
+                    MessageBox.Show("ERROR: An error occured while trying to connect to the encoder!\nPlease check your internet connection and the internet connection of the encoder, if that does not help, please contact an administrator. Extra info: While trying to get a new sessionId",
                                     "Error",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Warning);
+                }
                 return null;
             }
 
