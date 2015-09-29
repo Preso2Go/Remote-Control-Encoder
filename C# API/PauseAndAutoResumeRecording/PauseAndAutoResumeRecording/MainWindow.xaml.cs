@@ -98,8 +98,8 @@ namespace PauseAndAutoResumeRecording
         //Updates the recording status, and changed the application accordingly.
         private void UpdateRecStatus(bool erroronlive = true)
         {
-            string recstatus = getRecordingStatusEncoder(false);
             Application.Current.Dispatcher.Invoke(new Action(() => {
+                string recstatus = getRecordingStatusEncoder(false);
                 if (recstatus == "Recording  (Paused) " && currentrecstatus != 1)
                 {
                     currentrecstatus = 1;
@@ -309,24 +309,26 @@ namespace PauseAndAutoResumeRecording
                 dataStream.Close();
                 response.Close();
 
-                if (btnPauseResume.Style == (Style)FindResource("BtnResumeStyle")){
-                    btnPauseResume.Style = (Style)FindResource("BtnPauseStyle");
-                    currentrecstatus = 2;
-                }
-                else
-                {
-                    btnPauseResume.Style = (Style)FindResource("BtnResumeStyle");
-                    currentrecstatus = 1;
-                }
+                Application.Current.Dispatcher.Invoke(new Action(() => {
+                    if (btnPauseResume.Style == (Style)FindResource("BtnResumeStyle"))
+                    {
+                        btnPauseResume.Style = (Style)FindResource("BtnPauseStyle");
+                        currentrecstatus = 2;
+                    }
+                    else
+                    {
+                        btnPauseResume.Style = (Style)FindResource("BtnResumeStyle");
+                        currentrecstatus = 1;
+                    }
+                }));
             }
             catch
             {
-                MessageBox.Show("ERROR: An error occured while trying to connect to the encoder!\nPlease check your internet connection and the internet connection of the encoder, if that does not help, please contact an administrator.",
+                MessageBox.Show("ERROR: An error occured while trying to connect to the encoder!\nPlease check your internet connection and the internet connection of the encoder, if that does not help, please contact an administrator. Extra info: Error while trying to press the rec/pause/resume button",
                                     "Error",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Warning);
             }
-            
         }
 
         //Returns a new valid sessionId. This has to be done when trying to doing something in the encoder with the API.
@@ -358,7 +360,7 @@ namespace PauseAndAutoResumeRecording
             }
             catch
             {
-                MessageBox.Show("ERROR: An error occured while trying to connect to the encoder!\nPlease check your internet connection and the internet connection of the encoder, if that does not help, please contact an administrator.",
+                MessageBox.Show("ERROR: An error occured while trying to connect to the encoder!\nPlease check your internet connection and the internet connection of the encoder, if that does not help, please contact an administrator. Extra info: While trying to get a new sessionId",
                                     "Error",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Warning);
